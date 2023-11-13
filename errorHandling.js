@@ -33,7 +33,7 @@ function validateForm() {
 
 
   if (!checkEmail(email)) {
-      displayError(emailErrorDisplay, "Email must be @carsu.edu.ph");
+      emailErrorDisplay.textContent = "Email must be @carsu.edu.ph";
       return false;
   }
 
@@ -85,8 +85,10 @@ function clearFormFieldsAndErrors() {
   var confirmPasswordErrorElement = document.getElementById(
     "confirmPasswordErrorDisplay"
   );
+  var emailErrorElement = document.getElementById("emailErrorDisplay");
   passwordErrorElement.textContent = "";
   confirmPasswordErrorElement.textContent = "";
+  emailErrorElement.text = "";
 }
 
 // Function to close the modal
