@@ -163,13 +163,16 @@
 
         <div class="row mt-5">
           <div class="d-grid gap-2 col-6 mx-auto py-5">
-            <button type="button" class="btn rounded-pill custom-button1" style="
+            <a href="signup_student.php" type="button" class="btn rounded-pill" style="
                   background-color: #d250ff;
                   color: #ffffff;
                   height: 50px;
-                " data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signup_modal_student">
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
               STUDENT
-            </button>
+            </a>
             <button type="button" class="btn mt-3 rounded-pill" style="
                   background-color: #081fa4;
                   color: #ffffff;

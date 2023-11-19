@@ -20,7 +20,13 @@
 </head>
 
 <body>
-
+    <nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+        <img src="image/logo.png" alt="ClassChat" width="95" height="50" />
+        </a>
+    </div>
+    </nav>
 
 </body>
 
