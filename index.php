@@ -188,6 +188,9 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content py-2" style="border: 4px solid #A401DD; background-color: #E0CEF3;">
         <h2 class="text-center">Student - Signup</h2>
+        <!--error messages-->
+        <small class="text-danger error_msg" id="idErrorDisplay"></small>
+            <!--end of error messages-->
 
         <form class="px-3 py-4" method="POST" autocomplete="off" id="studentSignupForm">
           <div class="mb-3">
@@ -382,6 +385,7 @@
   <!--this is the script for error handling-->
   <script src="errorHandling.js"></script>
   <!--end of script for error handling-->
+
 
 </body>
 

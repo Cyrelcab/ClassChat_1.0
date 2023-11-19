@@ -1,15 +1,9 @@
 // Add an event listener to the form submission
 document.getElementById("studentSignupForm").addEventListener("submit", function (event) {
-  if (!validateForm()) {
+  if (!(validateForm())) {
       event.preventDefault(); // Prevent the form submission when there are errors
   }
 });
-
-// Function to check if the email is from "@carsu.edu.ph"
-function checkEmail(email) {
-  var checkCarsuEmail = /@carsu\.edu\.ph/;
-  return checkCarsuEmail.test(email);
-}
 
 // Function to display an error message for a specific input field
 function displayError(errorDisplay, errorMessage) {
@@ -23,19 +17,28 @@ function clearErrors() {
   confirmPasswordErrorDisplay.textContent = "";
 }
 
+
+
+
 // Function to validate the form
 function validateForm() {
   clearErrors(); // Clear any previous error messages
 
-  var email = document.getElementById("emailStudentSignup").value;
   var password = document.getElementById("passwordStudentSignup").value;
   var confirmPassword = document.getElementById("confirmPasswordStudentSignup").value;
-
-
-  if (!checkEmail(email)) {
-      emailErrorDisplay.textContent = "Email must be @carsu.edu.ph";
-      return false;
-  }
+  // var idNumber = document.getElementById("idNumberStudentSignup").value;
+  
+  // $.ajax({
+  //   type: 'POST',
+  //   url: 'checkIDbackend.php',
+  //   data: { idNumber: idNumber },
+  //   success: function(response){
+  //     if (response.exists){
+  //       displayError(idErrorDisplay, "ID Number is already exists");
+  //       return false;
+  //     }
+  //   }
+  // });
 
   if (password !== confirmPassword) {
       displayError(passwordErrorDisplay, "Password did not match");
@@ -85,10 +88,8 @@ function clearFormFieldsAndErrors() {
   var confirmPasswordErrorElement = document.getElementById(
     "confirmPasswordErrorDisplay"
   );
-  var emailErrorElement = document.getElementById("emailErrorDisplay");
   passwordErrorElement.textContent = "";
   confirmPasswordErrorElement.textContent = "";
-  emailErrorElement.text = "";
 }
 
 // Function to close the modal

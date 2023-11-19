@@ -1,4 +1,4 @@
-<?php
+<?php include('checkIDbackend.php');
 $server_name = "localhost";
 $username = "root";
 $password = "";
@@ -21,6 +21,7 @@ function addDatabase( $conn, $id_number, $name, $email, $password_encrypted){
     header('location: try.php');
 }
 
+
 //check if the signup button for the student has been click
 if (isset($_POST['signupStudent_btn'])) {
     $id_number = $_POST['idNumberStudentSignup'];
@@ -30,9 +31,9 @@ if (isset($_POST['signupStudent_btn'])) {
     $confirm_password = $_POST['confirmPasswordStudentSignup'];
     $carsu_email = "@carsu.edu.ph";
 
-    //check if the email is a carsu email
-    if (strpos($email, $carsu_email) !== false){
+    $id_exists = checkIDExist($conn, $id_number);
 
+    if(!$id_exists){
         //check if the password and confirm password match
         if ($password === $confirm_password) {
 
