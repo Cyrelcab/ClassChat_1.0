@@ -78,73 +78,31 @@
 
         <div class="row mt-5">
           <div class="d-grid gap-2 col-6 mx-auto py-5">
-            <button type="button" class="btn rounded-pill custom-button1" style="
+            <a href="login_student.php" type="button" class="btn rounded-pill custom-button1" style="
                   background-color: #d250ff;
                   color: #ffffff;
                   height: 50px;
-                " data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#login_modal_student">
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
               STUDENT
-            </button>
-            <button type="button" class="btn mt-3 rounded-pill" style="
+            </a>
+            <a href="login_employee.php" type="button" class="btn mt-3 rounded-pill" style="
                   background-color: #081fa4;
                   color: #ffffff;
                   height: 50px;
-                " data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#login_modal_employee">
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
               EMPLOYEE
-            </button>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!--this is the login modal for a student-->
-  <div class="modal fade" id="login_modal_student" tabindex="-1" aria-labelledby="login_modal_student_label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content py-5" style="border: 4px solid #A401DD; background-color: #E0CEF3;">
-        <h2 class="text-center">Student - Login</h2>
-
-        <form class="px-3 py-4">
-          <div class="mb-3">
-            <label for="idNumber" class="form-label fw-bold">ID NUMBER:</label>
-            <input type="text" class="form-control" id="idNumber" aria-describedby="idNumber" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="passwordStudent" class="form-label fw-bold">PASSWORD:</label>
-            <input type="password" class="form-control" id="passwordStudent" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="justify-content-center align-items-center d-flex">
-            <button type="submit" class="btn fw-semibold fs-6" style="background-color: #D250FF; width: 100px;">Login</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--end of login modal for a student-->
-
-  <!--this is the login modal for an employee/teacher-->
-  <div class="modal fade" id="login_modal_employee" tabindex="-1" aria-labelledby="login_modal_employee_label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content py-5" style="border: 4px solid #A401DD; background-color: #E0CEF3;">
-        <h2 class="text-center">Employee - Login</h2>
-
-        <form class="px-3 py-4">
-          <div class="mb-3">
-            <label for="employeeNumber" class="form-label fw-bold">EMPLOYEE NUMBER:</label>
-            <input type="text" class="form-control" id="employeeNumber" aria-describedby="employeeNumber" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="passwordEmployee" class="form-label fw-bold">PASSWORD:</label>
-            <input type="password" class="form-control" id="passwordEmployee" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="justify-content-center align-items-center d-flex">
-            <button type="submit" class="btn fw-semibold fs-6 text-white" style="background-color: #3A48B6; width: 100px;">Login</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--end of login modal for an employee-->
   <!--end of modal for login-->
 
   <!--this is the modal for signup-->
@@ -173,102 +131,21 @@
                 ">
               STUDENT
             </a>
-            <button type="button" class="btn mt-3 rounded-pill" style="
+            <a href="signup_employee.php" type="button" class="btn mt-3 rounded-pill" style="
                   background-color: #081fa4;
                   color: #ffffff;
                   height: 50px;
-                " data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signup_modal_employee">
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
               EMPLOYEE
-            </button>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!--this is the signup modal for a student-->
-  <div class="modal fade" id="signup_modal_student" tabindex="-1" aria-labelledby="signup_modal_student_label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content py-2" style="border: 4px solid #A401DD; background-color: #E0CEF3;">
-        <h2 class="text-center">Student - Signup</h2>
-        <!--error messages-->
-        <small class="text-danger error_msg" id="idErrorDisplay"></small>
-            <!--end of error messages-->
-
-        <form class="px-3 py-4" method="POST" autocomplete="off" id="studentSignupForm">
-          <div class="mb-3">
-            <label for="nameStudentSignup" class="form-label fw-bold">Name</label>
-            <input type="text" class="form-control" id="nameStudentSignup" name="nameStudentSignup" placeholder="Ex: Juan Dela Cruz" style="background-color: rgba(135, 139, 243, .5);" required>
-          </div>
-          <div class="mb-3">
-            <label for="emailStudentSignup" class="form-label fw-bold">Email</label>
-            <!--error messages-->
-            <small class="text-danger error_msg" id="emailErrorDisplay"></small>
-            <!--end of error messages-->
-            <input type="email" class="form-control" id="emailStudentSignup" name="emailStudentSignup" aria-describedby="emailStudent" placeholder="Use carsu email @carsu.edu.ph" style="background-color: rgba(135, 139, 243, .5);" required>
-          </div>
-          <div class="mb-3">
-            <label for="idNumberStudentSignup" class="form-label fw-bold">ID Number</label>
-            <input type="text" class="form-control" id="idNumberStudentSignup" name="idNumberStudentSignup" placeholder="Ex: 211-12345" style="background-color: rgba(135, 139, 243, .5);" required>
-          </div>
-          <div class="mb-3">
-            <label for="passwordStudentSignup" class="form-label fw-bold">Password</label>
-            <!--error messages-->
-            <small class="text-danger error_msg" id="passwordErrorDisplay"></small>
-            <!--end of error messages-->
-            <input type="password" class="form-control" id="passwordStudentSignup" name="passwordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" required>
-          </div>
-          <div class="mb-3">
-            <label for="confirmPasswordStudentSignup" class="form-label fw-bold">Confirm Password</label>
-            <!--error messages-->
-            <small class="text-danger error_msg" id="confirmPasswordErrorDisplay"></small>
-            <!--end of error messages-->
-            <input type="password" class="form-control" id="confirmPasswordStudentSignup" name="confirmPasswordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" required>
-          </div>
-          <div class="justify-content-center align-items-center d-flex">
-            <button type="submit" class="btn fw-semibold fs-6" name="signupStudent_btn" style="background-color: #D250FF; width: 100px;">Signup</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--end of signup modal for a student-->
-
-  <!--this is the signup modal for an employee-->
-  <div class="modal fade" id="signup_modal_employee" tabindex="-1" aria-labelledby="signup_modal_employee_label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content py-2" style="border: 4px solid #A401DD; background-color: #E0CEF3;">
-        <h2 class="text-center">Employee - Signup</h2>
-
-        <form class="px-3 py-4" method="POST" autocomplete="off">
-          <div class="mb-3">
-            <label for="nameEmployeeSignup" class="form-label fw-bold">Name:</label>
-            <input type="text" class="form-control" id="nameEmployeeSignup" name='nameEmployeeSignup' placeholder="Ex: Juan Dela Cruz" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="emailEmployeeSignup" class="form-label fw-bold">Email:</label>
-            <input type="email" class="form-control" id="emailEmployeeSignup" name='emailEmployeeSignup' aria-describedby="emailStudent" placeholder="Use carsu email @carsu.edu.ph" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="employeeNumberSignup" class="form-label fw-bold">Employee Number:</label>
-            <input type="text" class="form-control" id="employeeNumberSignup" name='employeeNumberSignup' placeholder="Ex: 211-12345" style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="passwordEmployeeSignup" class="form-label fw-bold">Password:</label>
-            <input type="password" class="form-control" id="passwordEmployeeSignup" name='passwordEmployeeSignup' placeholder='must contain "!@$%&" and 12 characters long' style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="mb-3">
-            <label for="confirmPasswordEmployeeSignup" class="form-label fw-bold">Confirm Password:</label>
-            <input type="password" class="form-control" id="confirmPasswordEmployeeSignup" name='confirmPasswordEmployeeSignup' placeholder='must contain "!@$%&" and 12 characters long' style="background-color: rgba(135, 139, 243, .5);">
-          </div>
-          <div class="justify-content-center align-items-center d-flex">
-            <button type="submit" class="btn fw-semibold fs-6 text-white" name='signupEmployee_btn' style="background-color: #3A48B6; width: 100px;">Signup</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--end of signup modal for an employee-->
   <!--end of modal for signup-->
 
   <!--this is the home section-->
