@@ -26,19 +26,6 @@ function validateForm() {
 
   var password = document.getElementById("passwordStudentSignup").value;
   var confirmPassword = document.getElementById("confirmPasswordStudentSignup").value;
-  // var idNumber = document.getElementById("idNumberStudentSignup").value;
-  
-  // $.ajax({
-  //   type: 'POST',
-  //   url: 'checkIDbackend.php',
-  //   data: { idNumber: idNumber },
-  //   success: function(response){
-  //     if (response.exists){
-  //       displayError(idErrorDisplay, "ID Number is already exists");
-  //       return false;
-  //     }
-  //   }
-  // });
 
   if (password !== confirmPassword) {
       displayError(passwordErrorDisplay, "Password did not match");

@@ -262,10 +262,6 @@
   </script>
   <!--end of script for automatically close toggler-->
 
-  <!--this is the script for error handling-->
-  <script src="errorHandling.js"></script>
-  <!--end of script for error handling-->
-
 
 </body>
 

@@ -1,8 +1,22 @@
-<?php include('checkIDbackend.php');
+<?php 
+include('checkIDbackend.php');
 $server_name = "localhost";
 $username = "root";
 $password = "";
 $db_name = "classchat_database";
+
+//declaring all the variables 
+$id_number = null;
+$name = null;
+$email = null;
+$password = null;
+$confirm_password = null;
+$id_error = null;
+$id_exist_error = null;
+$name_error = null;
+$email_error = null;
+$password_error = null;
+$confirm_password_error = null;
 
 /*connect to mysql*/
 $conn = mysqli_connect($server_name, $username, $password, $db_name);
@@ -31,9 +45,30 @@ if (isset($_POST['signupStudent_btn'])) {
     $confirm_password = $_POST['confirmPasswordStudentSignup'];
     $carsu_email = "@carsu.edu.ph";
 
+    if(empty(trim($id_number))){
+        $id_error = "ID Field is empty";
+    }
+
+    if(empty(trim($name))){
+        $name_error = "Name Field is empty";
+    }
+
+    if(empty(trim($email))){
+        $email_error = "Email Field is empty";
+    }
+
+    if(empty(trim($password))){
+        $password_error = "Password Field is empty";
+    }
+
+    if(empty(trim($confirm_password))){
+        $confirm_password_error = "Confirm Password Field is empty";
+    }
+
+
     $id_exists = checkIDExist($conn, $id_number);
 
-    if(!$id_exists){
+    if(!$id_exists && (!empty(trim($id_number)))){
         //check if the password and confirm password match
         if ($password === $confirm_password) {
 
@@ -47,10 +82,26 @@ if (isset($_POST['signupStudent_btn'])) {
 
                     //calling the function to add in the database
                     addDatabase($conn, $id_number, $name, $email, $password_encrypted);
+                }else{
+                    $password_error = "Password must 10 characters long";
+                    $confirm_password_error = "Password must 10 characters long";
                 }
+            }else{
+                $password_error = "Password must contain characters !@$%&";
+                $confirm_password_error = "Password must contain characters !@$%&";
             }
+        }else{
+            $password_error = "Password did not match";
+            $confirm_password_error = "Password did not match";
         }
+    }else{
+        $id_exist_error = "ID Number Already Exists!";
+        $name_error = null;
+        $email_error = null;
+        $password_error = null;
+        $confirm_password_error = null;
     }
+
 }
 
 //check if the signup button for the employee has been click
