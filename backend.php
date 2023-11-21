@@ -1,5 +1,8 @@
 <?php 
 include('checkIDbackend.php');
+include('checkEmailbackend.php');
+
+//variables for the database connection
 $server_name = "localhost";
 $username = "root";
 $password = "";
@@ -45,10 +48,7 @@ if (isset($_POST['signupStudent_btn'])) {
     $confirm_password = $_POST['confirmPasswordStudentSignup'];
     $carsu_email = "@carsu.edu.ph";
 
-    if(empty(trim($id_number))){
-        $id_error = "ID Field is empty";
-    }
-
+    //check all the input fields if they are empty
     if(empty(trim($name))){
         $name_error = "Name Field is empty";
     }
@@ -65,43 +65,53 @@ if (isset($_POST['signupStudent_btn'])) {
         $confirm_password_error = "Confirm Password Field is empty";
     }
 
+    if(empty(trim($id_number))){
+        $id_error = "ID Field is empty";
+    }else{
+        //checking functions for email and the id
+        $id_exists = checkIDExist($conn, $id_number);
+        $email_exists = checkEmailExist($conn, $email);
 
-    $id_exists = checkIDExist($conn, $id_number);
+        //check if the id number is existing in the database
+        if(!$id_exists){
+            if(!$email_exists){
+                //check if the password and confirm password match
+                if ($password === $confirm_password) {
 
-    if(!$id_exists && (!empty(trim($id_number)))){
-        //check if the password and confirm password match
-        if ($password === $confirm_password) {
+                    //check if the password contains special characters like !@$%&
+                    if (preg_match('/[!@$%&]/', $password)) {
 
-            //check if the password contains special characters like !@$%&
-            if (preg_match('/[!@$%&]/', $password)) {
+                        //check if the password is 10 characters long
+                        if (strlen($password) === 10) {
+                            //encrypt the password
+                            $password_encrypted = md5($password);
 
-                //check if the password is 10 characters long
-                if (strlen($password) === 10) {
-                    //encrypt the password
-                    $password_encrypted = md5($password);
-
-                    //calling the function to add in the database
-                    addDatabase($conn, $id_number, $name, $email, $password_encrypted);
+                            //calling the function to add in the database
+                            addDatabase($conn, $id_number, $name, $email, $password_encrypted);
+                        }else{
+                            $password_error = "Password must 10 characters long";
+                            $confirm_password_error = "Password must 10 characters long";
+                        }
+                    }else{
+                        $password_error = "Password must contain characters !@$%&";
+                        $confirm_password_error = "Password must contain characters !@$%&";
+                    }
                 }else{
-                    $password_error = "Password must 10 characters long";
-                    $confirm_password_error = "Password must 10 characters long";
+                    $password_error = "Password did not match";
+                    $confirm_password_error = "Password did not match";
                 }
             }else{
-                $password_error = "Password must contain characters !@$%&";
-                $confirm_password_error = "Password must contain characters !@$%&";
+                $email_exist_error = "Email is already exists";
             }
         }else{
-            $password_error = "Password did not match";
-            $confirm_password_error = "Password did not match";
+            $id_exist_error = "ID Number Already Exists!";
+            $name_error = null;
+            $email_error = null;
+            $password_error = null;
+            $confirm_password_error = null;
         }
-    }else{
-        $id_exist_error = "ID Number Already Exists!";
-        $name_error = null;
-        $email_error = null;
-        $password_error = null;
-        $confirm_password_error = null;
-    }
 
+    }
 }
 
 //check if the signup button for the employee has been click

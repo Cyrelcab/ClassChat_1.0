@@ -32,6 +32,19 @@
             }
         </style><?php
             }
+            if ($email_exist_error != null) {
+    ?><style>
+            .email_exist_error {
+                display: block;
+            }
+            #emailStudentSignup.error-input{
+                border-color: #dc3545;
+            }
+            label#email_label.error-input{
+                color: #dc3545;
+            }
+        </style><?php
+            }
             if ($id_error != null) {
                 ?><style>
             .id_error {
@@ -113,8 +126,12 @@
                 <a href="index.php" type="button" class="btn-close float-end" aria-label="Close"></a>
 
                 <h2 class="text-center pt-3">Student - Signup</h2>
+                <!--error messages-->
                 <p class="error_exist id_exist_error text-danger text-center">
                     <?php echo $id_exist_error ?>
+                </p>
+                <p class="error_exist email_exist_error text-danger text-center">
+                    <?php echo $email_exist_error ?>
                 </p>
 
                 <form class="px-3 py-2" method="POST" autocomplete="off" id="studentSignupForm">
