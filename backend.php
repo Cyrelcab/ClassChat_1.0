@@ -18,6 +18,7 @@ $id_error = null;
 $id_exist_error = null;
 $name_error = null;
 $email_error = null;
+$email_exist_error = null;
 $password_error = null;
 $confirm_password_error = null;
 
@@ -74,6 +75,8 @@ if (isset($_POST['signupStudent_btn'])) {
 
         //check if the id number is existing in the database
         if(!$id_exists){
+
+            //check if the inputted email is exist in the database
             if(!$email_exists){
                 //check if the password and confirm password match
                 if ($password === $confirm_password) {
@@ -101,10 +104,10 @@ if (isset($_POST['signupStudent_btn'])) {
                     $confirm_password_error = "Password did not match";
                 }
             }else{
-                $email_exist_error = "Email is already exists";
+                $email_exist_error = "Email is Already Exists!";
             }
         }else{
-            $id_exist_error = "ID Number Already Exists!";
+            $id_exist_error = "ID Number is Already Exists!";
             $name_error = null;
             $email_error = null;
             $password_error = null;

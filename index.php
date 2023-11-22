@@ -149,9 +149,9 @@
   <!--end of modal for signup-->
 
   <!--this is the home section-->
-  <section id="home" class="container custom-margin-top pt-5">
-    <div class="row text-white align-items-center justify-content-center ms-3">
-      <div class="col">
+  <section id="home" class="container py-5">
+    <div class="row d-flex text-white align-items-center justify-content-center pt-5 ms-3">
+      <div class="col py-5">
         <h1>Learning, Sharing, and Growing Together with ClassChat</h1>
         <hr class="w-50" />
         <hr />
@@ -164,7 +164,7 @@
           </button>
         </a>
       </div>
-      <div class="col-6">
+      <div class="col-6 py-5">
         <img src="image/home-pic.png" alt="" class="custom-image-size ms-5 floating-img" />
       </div>
     </div>
@@ -172,15 +172,15 @@
   <!--end of home section-->
 
   <!--this is the about section-->
-  <section id="about" class="container custom-margin-bottom-about">
-    <div class="row text-white align-items-center ms-3">
-      <div class="col" data-aos="fade-right">
+  <section id="about" class="container pt-5">
+    <div class="row pt-5 text-white align-items-center ms-3">
+      <div class="col pt-5" data-aos="fade-right">
         <img src="image/logo.png" alt="" class="w-100" />
         <h2 class="text-center">
           Learning, Sharing, and Growing Together with ClassChat
         </h2>
       </div>
-      <div class="col" data-aos="fade-left">
+      <div class="col pt-5" data-aos="fade-left">
         <div class="custom-border-about ms-5 px-4">
           <h2 class="text-end pt-3">ABOUT US</h2>
           <div class="custom-position">
@@ -209,9 +209,9 @@
   <!--end of about section-->
 
   <!--this is the service section-->
-  <section id="services" class="container custom-margin-top-service">
-    <div class="row text-white align-items-center ms-3">
-      <div class="col" data-aos="fade-right">
+  <section id="services" class="container pt-5" style="height: 100vh;">
+    <div class="row pt-5 text-white align-items-center ms-3">
+      <div class="col pt-5" data-aos="fade-right">
         <div class="custom-border-about px-4">
           <h2 class="text-start pt-3">SERVICES</h2>
           <div class="d-flex justify-content-start">
@@ -235,8 +235,8 @@
           </p>
         </div>
       </div>
-      <div class="col" data-aos="fade-left">
-        <img src="image/home-pic.png" alt="" class="custom-image-size ms-5" />
+      <div class="col pt-5" data-aos="fade-left">
+        <img src="image/home-pic.png" alt="" class="custom-image-size ms-5 " />
       </div>
     </div>
   </section>
