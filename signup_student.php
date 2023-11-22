@@ -18,6 +18,8 @@
 
     <!--for animations-->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!--error messages from php-->
     <?php
     if ($id_exist_error != null) {
     ?><style>
@@ -55,7 +57,7 @@
                 display: block
             }
 
-            #idNumberStudentSignup.error-input {
+            #idNumberStudentSignup.error-input{
                 border-color: #dc3545;
             }
 
@@ -70,7 +72,7 @@
                 display: block;
             }
 
-            #nameStudentSignup.error-input {
+            #nameStudentSignup.error-input{
                 border-color: #dc3545;
             }
 
@@ -85,7 +87,7 @@
                 display: block;
             }
 
-            #emailStudentSignup.error-input {
+            #emailStudentSignup.error-input{
                 border-color: #dc3545;
             }
 
@@ -100,7 +102,7 @@
                 display: block;
             }
 
-            #passwordStudentSignup.error-input {
+            #passwordStudentSignup.error-input{
                 border-color: #dc3545;
             }
 
@@ -115,7 +117,7 @@
                 display: block;
             }
 
-            #confirmPasswordStudentSignup.error-input {
+            #confirmPasswordStudentSignup.error-input{
                 border-color: #dc3545;
             }
 
@@ -145,6 +147,8 @@
                 </p>
 
                 <form class="px-3 py-2" method="POST" autocomplete="off" id="studentSignupForm">
+
+                    <!--name field--->
                     <div class="mb-3">
                         <label for="nameStudentSignup" id="name_label" class="form-label fw-bold error-input">Name</label>
                         <input type="text" class="form-control error-input" id="nameStudentSignup" name="nameStudentSignup" placeholder="Juan Dela Cruz" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $name ?>">
@@ -152,6 +156,8 @@
                             <?php echo $name_error ?>
                         </p>
                     </div>
+
+                    <!---email field---->
                     <div class="mb-3">
                         <label for="emailStudentSignup" id="email_label" class="form-label fw-bold error-input">Email</label>
                         <input type="email" class="form-control error-input" id="emailStudentSignup" name="emailStudentSignup" aria-describedby="emailStudent" placeholder="Use carsu email @carsu.edu.ph" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $email ?>">
@@ -159,6 +165,8 @@
                             <?php echo $email_error ?>
                         </p>
                     </div>
+
+                    <!--id number field--->
                     <div class="mb-3">
                         <label for="idNumberStudentSignup" id="id_number_label" class="form-label fw-bold error-input">ID Number</label>
                         <input type="text" class="form-control error-input" id="idNumberStudentSignup" name="idNumberStudentSignup" placeholder="211-12345" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $id_number ?>">
@@ -166,6 +174,8 @@
                             <?php echo $id_error ?>
                         </p>
                     </div>
+
+                    <!---password field--->
                     <div class="mb-3">
                         <label for="passwordStudentSignup" id="password_label" class="form-label fw-bold error-input">Password</label>
                         <input type="password" class="form-control error-input" id="passwordStudentSignup" name="passwordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $password ?>">
@@ -173,6 +183,8 @@
                             <?php echo $password_error ?>
                         </p>
                     </div>
+
+                    <!--confirm password field--->
                     <div class="mb-3">
                         <label for="confirmPasswordStudentSignup" id="confirm_password_label" class="form-label fw-bold error-input">Confirm Password</label>
                         <input type="password" class="form-control error-input" id="confirmPasswordStudentSignup" name="confirmPasswordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $confirm_password ?>">

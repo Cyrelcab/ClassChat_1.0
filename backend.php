@@ -117,19 +117,3 @@ if (isset($_POST['signupStudent_btn'])) {
     }
 }
 
-//check if the signup button for the employee has been click
-if (isset($_POST['signupEmployee_btn'])) {
-    $employee_number = $_POST['employeeNumberSignup'];
-    $name = $_POST['nameEmployeeSignup'];
-    $email = $_POST['emailEmployeeSignup'];
-    $password = $_POST['passwordEmployeeSignup'];
-
-    //encrypt the password
-    $password_encrypted = md5($password);
-
-    //inserting the data into employee_table
-    $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password) 
-  			  VALUES('$employee_number', '$name', '$email', '$password_encrypted')";
-    mysqli_query($conn, $query);
-    header('location: try.php');
-}
