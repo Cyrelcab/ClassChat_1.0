@@ -24,23 +24,27 @@
             .id_exist_error {
                 display: block;
             }
+
             label#id_number_label.error-input {
                 color: #dc3545;
             }
+
             #idNumberStudentSignup.error-input {
                 border-color: #dc3545;
             }
         </style><?php
             }
             if ($email_exist_error != null) {
-    ?><style>
+                ?><style>
             .email_exist_error {
                 display: block;
             }
-            #emailStudentSignup.error-input{
+
+            #emailStudentSignup.error-input {
                 border-color: #dc3545;
             }
-            label#email_label.error-input{
+
+            label#email_label.error-input {
                 color: #dc3545;
             }
         </style><?php
@@ -80,10 +84,12 @@
             .email_error {
                 display: block;
             }
-            #emailStudentSignup.error-input{
+
+            #emailStudentSignup.error-input {
                 border-color: #dc3545;
             }
-            label#email_label.error-input{
+
+            label#email_label.error-input {
                 color: #dc3545;
             }
         </style> <?php
@@ -93,10 +99,12 @@
             .password_error {
                 display: block;
             }
-            #passwordStudentSignup.error-input{
+
+            #passwordStudentSignup.error-input {
                 border-color: #dc3545;
             }
-            label#password_label.error-input{
+
+            label#password_label.error-input {
                 color: #dc3545;
             }
         </style> <?php
@@ -106,10 +114,12 @@
             .confirm_password_error {
                 display: block;
             }
-            #confirmPasswordStudentSignup.error-input{
+
+            #confirmPasswordStudentSignup.error-input {
                 border-color: #dc3545;
             }
-            label#confirm_password_label.error-input{
+
+            label#confirm_password_label.error-input {
                 color: #dc3545;
             }
         </style> <?php
@@ -143,7 +153,7 @@
                         </p>
                     </div>
                     <div class="mb-3">
-                        <label for="emailStudentSignup" id="email_label"  class="form-label fw-bold error-input">Email</label>
+                        <label for="emailStudentSignup" id="email_label" class="form-label fw-bold error-input">Email</label>
                         <input type="email" class="form-control error-input" id="emailStudentSignup" name="emailStudentSignup" aria-describedby="emailStudent" placeholder="Use carsu email @carsu.edu.ph" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $email ?>">
                         <p class="error email_error text-danger">
                             <?php echo $email_error ?>
@@ -177,6 +187,12 @@
             </div>
         </div>
     </div>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 </body>
 
