@@ -181,7 +181,7 @@
                         </p>
                     </div>
                     <div class="justify-content-center align-items-center d-flex">
-                        <button type="submit" class="btn fw-semibold fs-6" name="signupStudent_btn" style="background-color: #D250FF; width: 100px;">Signup</button>
+                        <button type="submit" class="btn fw-semibold fs-6 text-white" name="signupStudent_btn" style="background-color: #D250FF; width: 100px;">Signup</button>
                     </div>
                 </form>
             </div>
