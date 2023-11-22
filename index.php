@@ -170,7 +170,7 @@
   <!--end of home section-->
 
   <!--this is the about section-->
-  <section id="about" class="container pt-5">
+  <section id="about" class="container pt-4">
     <div class="row pt-5 text-white align-items-center ms-3">
       <div class="col pt-5" data-aos="fade-right">
         <img src="image/logo.png" alt="" class="w-100" />
