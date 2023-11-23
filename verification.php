@@ -1,3 +1,4 @@
+<?php include('backend.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,10 +20,13 @@
     <div class="container-verify">
         <img src="image/email_verify.png" alt="" width="15%">
         <h2>Verify Your Account</h2>
-        <p>
-            We emailed you the six digit code to the personal@gmail.com <br />
-            Enter the code below to confirm your email address
-        </p>
+        
+        <!-- Check if $verification_msg is not empty -->
+        <?php if (!empty($verification_msg)) : ?>
+            <p>
+                <?php echo $verification_msg; ?>
+            </p>
+        <?php endif; ?>
 
         <div class="code-container">
             <input type="number" class="code" min="0" max="9" required />

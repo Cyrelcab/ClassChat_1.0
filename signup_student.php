@@ -1,4 +1,4 @@
-<?php require('backend_student.php'); ?>
+<?php require('backend.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
