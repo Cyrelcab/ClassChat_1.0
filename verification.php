@@ -1,4 +1,6 @@
-<?php include('backend.php'); ?>
+<?php
+session_start();
+include('backend.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,27 +22,31 @@
     <div class="container-verify">
         <img src="image/email_verify.png" alt="" width="15%">
         <h2>Verify Your Account</h2>
-        
-        <!-- Check if $verification_msg is not empty -->
-        <?php if (!empty($verification_msg)) : ?>
+
+        <!-- Check if the session variable is set and not empty -->
+        <?php if (isset($_SESSION['verification_msg']) && !empty($_SESSION['verification_msg'])) : ?>
             <p>
-                <?php echo $verification_msg; ?>
+                <?php echo $_SESSION['verification_msg']; ?>
             </p>
-        <?php endif; ?>
+        <?php
+        endif;
+        ?>
 
-        <div class="code-container">
-            <input type="number" class="code" min="0" max="9" required />
-            <input type="number" class="code" min="0" max="9" required />
-            <input type="number" class="code" min="0" max="9" required />
-            <input type="number" class="code" min="0" max="9" required />
-            <input type="number" class="code" min="0" max="9" required />
-            <input type="number" class="code" min="0" max="9" required />
-        </div>
+        <form method="POST">
+            <div class="code-container">
+                <?php
+                // Add the following loop to generate input fields with the correct name attributes
+                for ($i = 1; $i <= 6; $i++) {
+                    echo '<input type="number" name="code' . $i . '" class="code" min="0" max="9" required />';
+                }
+                ?>
+            </div>
 
-        <div>
-            <button type="button" class="btn-verify btn-primary-verify">Verify</button>
-        </div>
-        <small> If you didn't recieve a code!! <strong>RESEND</strong> </small>
+            <div>
+                <button type="submit" class="btn-verify btn-primary-verify" name="btn-verify">Verify</button>
+            </div>
+        </form>
+        <small> If you didn't recieve a code!! <a href="resend_code.php" style="color: white; font-weight: bold;">Resend</a></small>
 
         <script src="verification.js"></script>
 </body>

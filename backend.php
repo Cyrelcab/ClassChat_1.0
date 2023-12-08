@@ -72,7 +72,7 @@ if (isset($_POST['signupStudent_btn'])) {
         //check if the id number is existing in the database
         if (!$id_exists) {
 
-            if(strpos($email, $carsu_email) !== false){
+            if (strpos($email, $carsu_email) !== false) {
 
                 //check if the inputted email is exist in the database
                 if (!$email_exists) {
@@ -85,48 +85,46 @@ if (isset($_POST['signupStudent_btn'])) {
 
                             //check if the password is 10 characters long
                             if (strlen($password) === 10) {
-                                //encrypt the password
-                                // $password_encrypted = md5($password);
-
-                                // $query = "INSERT INTO student_table (ID_number, Name, Email, Password) 
-                                // VALUES('$id_number', '$name', '$email', '$password_encrypted')";
-                                // mysqli_query($conn, $query);
-                                // header('location: try.php');
 
                                 //generate code to send in email
                                 $otp_code = rand(100000, 999999);
 
                                 //send otp code to email
                                 $mail = new PHPMailer();
-                                $mail -> IsSMTP();
-                                $mail -> SMTPAuth = true;
-                                $mail -> SMTPSecure = 'tls';
-                                $mail -> Host = "smtp.gmail.com";
-                                $mail -> Port = 587;
-                                $mail -> IsHTML(true);
-                                $mail -> CharSet = "UTF-8";
-                                $mail -> SMTPDebug = 3;
-                                $mail -> Username = "cabodbodcyrel2003@gmail.com";
-                                $mail -> Password = "myph tgdu vtgp btiq";
-                                $mail -> SetFrom("ClassChat@gmail.com");
-                                $mail -> Subject = "Email Verification";
-                                $mail -> Body = "Your 6 Digit OTP Code: " . $otp_code;
-                                $mail -> AddAddress($email);
-                                $mail -> SMTPOptions = array('ssl' => array(
+                                $mail->IsSMTP();
+                                $mail->SMTPAuth = true;
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Host = "smtp.gmail.com";
+                                $mail->Port = 587;
+                                $mail->IsHTML(true);
+                                $mail->CharSet = "UTF-8";
+                                $mail->SMTPDebug = 3;
+                                $mail->Username = "classchat10@gmail.com";
+                                $mail->Password = "ppsx ozyl tbrp qlse";
+                                $mail->SetFrom("classchat10@gmail.com", "ClassChat");
+                                $mail->Subject = "Email Verification";
+                                $mail->Body = "Your 6 Digit Verification Code: " . $otp_code;
+                                $mail->AddAddress($email);
+                                $mail->SMTPOptions = array('ssl' => array(
                                     'verify_peer' => false,
                                     'verify_peer_name' => false,
                                     'allow_self_signed' => false
                                 ));
 
                                 //check if it is successfully send
-                                if(!$mail->Send()){
-                                    echo $mail -> ErrorInfo;
-                                }else{
-                                    $verification_msg = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
+                                if (!$mail->Send()) {
+                                    echo $mail->ErrorInfo;
+                                } else {
+                                    session_start();
+
+                                    $_SESSION['users_id'] = $id_number;
+                                    $_SESSION['users_name'] = $name;
+                                    $_SESSION['users_password'] = $password;
+                                    $_SESSION['users_email'] = $email;
+                                    $_SESSION['verification_code'] = $otp_code;
+                                    $_SESSION['verification_msg'] = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
                                     header('location: verification.php');
                                 }
-
-
                             } else {
                                 $password_error = "Password must 10 characters long";
                                 $confirm_password_error = "Password must 10 characters long";
@@ -142,18 +140,18 @@ if (isset($_POST['signupStudent_btn'])) {
                 } else {
                     $email_exist_error = "Email is Already Exists!";
                 }
-            }else{
+            } else {
                 $email_error = "Invalid email! Use @carsu.edu.ph";
             }
-                } else {
-                    $id_exist_error = "ID Number is Already Exists!";
-                    $name_error = null;
-                    $email_error = null;
-                    $password_error = null;
-                    $confirm_password_error = null;
-                }
+        } else {
+            $id_exist_error = "ID Number is Already Exists!";
+            $name_error = null;
+            $email_error = null;
+            $password_error = null;
+            $confirm_password_error = null;
         }
     }
+}
 
 //check if the signup button for the employee has been click
 if (isset($_POST['signupEmployee_btn'])) {
@@ -163,32 +161,98 @@ if (isset($_POST['signupEmployee_btn'])) {
     $password = $_POST['passwordEmployeeSignup'];
     $confirm_password = $_POST['confirmPasswordEmployeeSignup'];
 
-    if(empty(trim($name))){
+    if (empty(trim($name))) {
         $name_error = "Name Field is empty";
     }
 
-    if(empty(trim($email))){
+    if (empty(trim($email))) {
         $email_error = "Email Field is empty";
     }
 
-    if(empty(trim($password))){
+    if (empty(trim($password))) {
         $password_error = "Password Field is empty";
     }
 
-    if(empty(trim($confirm_password))){
+    if (empty(trim($confirm_password))) {
         $confirm_password_error = "Confirm Password Field is empty";
     }
 
-    if(empty(trim($id_number))){
+    if (empty(trim($id_number))) {
         $id_error = "Employee Number Field is empty";
-    }
-    //encrypt the password
-    $password_encrypted = md5($password);
+    }else{
+        //check email and id if exist
+        $id_exists = checkEmployeeId($conn, $id_number);
+        $email_exists = checkEmployeeEmail($conn, $email);
 
-    //inserting the data into employee_table
-    // $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password) 
-  	// 		  VALUES('$employee_number', '$name', '$email', '$password_encrypted')";
-    // mysqli_query($conn, $query);
-    // header('location: try.php');
+        //check if the employee id number is existing in the database
+        if (!$id_exists){
+            //check if the email is carsu email
+            if (strpos($email, $carsu_email) !== false){
+                //check if the email is already exist in the database
+                if (!$email_exists){
+                    //check if the password and confirm password match
+                    if ($password === $confirm_password){
+
+                    }else{
+                        $password_error = "Password did not match";
+                        $confirm_password_error = "Password did not match";
+                    }
+                }else{
+                    $email_exist_error = "Email is Already Exists!";
+                }
+            }else{
+                $email_error = "Invalid email! Use @carsu.edu.ph";
+            }
+        }else{
+            $id_exist_error = "Employee Number is Already Exists!";
+            $name_error = null;
+            $email_error = null;
+            $password_error = null;
+            $confirm_password_error = null;
+        }
+    }
+    // //encrypt the password
+    // $password_encrypted = md5($password);
+
+    // //inserting the data into employee_table
+    // // $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password) 
+    // // 		  VALUES('$employee_number', '$name', '$email', '$password_encrypted')";
+    // // mysqli_query($conn, $query);
+    // // header('location: try.php');
 }
-?>
+
+if (isset($_POST['btn-verify'])) {
+    // Assuming you have already generated and stored the verification code in a session variable
+    $generated_code = $_SESSION['verification_code'];
+
+    //variables to be input in the database
+    $id_number = $_SESSION['users_id'];
+    $name = $_SESSION['users_name'];
+    $email = $_SESSION['users_email'];
+    $password = $_SESSION['users_password'];
+    // Collect user input from the form
+    $user_input = '';
+    for ($i = 1; $i <= 6; $i++) {
+        $input_name = 'code' . $i;
+        if (isset($_POST[$input_name])) {
+            $user_input .= $_POST[$input_name];
+        }
+    }
+
+    $user_input = trim($user_input);
+    $generated_code = trim($generated_code);
+
+    // Compare user input with the generated code
+    if ($user_input === $generated_code) {
+        //encrypt the password
+        $password_encrypted = md5($password);
+
+        $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
+                                VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
+        mysqli_query($conn, $query);
+        header('location: try.php');
+    } else {
+        // Verification failed, display an error message or redirect
+        echo "Verification failed!";
+    }
+}
