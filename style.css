@@ -192,8 +192,3 @@ body {
   border-color: #D250FF;
 }
 
-small > a .custom-verification-link{
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}

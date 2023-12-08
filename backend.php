@@ -122,6 +122,7 @@ if (isset($_POST['signupStudent_btn'])) {
                                     $_SESSION['users_password'] = $password;
                                     $_SESSION['users_email'] = $email;
                                     $_SESSION['verification_code'] = $otp_code;
+                                    $_SESSION['verification_code_timestamp'] = time();
                                     $_SESSION['verification_msg'] = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
                                     header('location: verification.php');
                                 }
@@ -179,31 +180,82 @@ if (isset($_POST['signupEmployee_btn'])) {
 
     if (empty(trim($id_number))) {
         $id_error = "Employee Number Field is empty";
-    }else{
+    } else {
         //check email and id if exist
         $id_exists = checkEmployeeId($conn, $id_number);
         $email_exists = checkEmployeeEmail($conn, $email);
 
         //check if the employee id number is existing in the database
-        if (!$id_exists){
+        if (!$id_exists) {
             //check if the email is carsu email
-            if (strpos($email, $carsu_email) !== false){
+            if (strpos($email, $carsu_email) !== false) {
                 //check if the email is already exist in the database
-                if (!$email_exists){
+                if (!$email_exists) {
                     //check if the password and confirm password match
-                    if ($password === $confirm_password){
+                    if ($password === $confirm_password) {
+                        //check if the password contains special characters like !@$%&
+                        if (preg_match('/[!@$%&]/', $password)) {
+                            //check if the password is 10 characters long
+                            if (strlen($password) === 10) {
+                                //generate code to send in email
+                                $otp_code = rand(100000, 999999);
 
-                    }else{
+                                //send otp code to email
+                                $mail = new PHPMailer();
+                                $mail->IsSMTP();
+                                $mail->SMTPAuth = true;
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Host = "smtp.gmail.com";
+                                $mail->Port = 587;
+                                $mail->IsHTML(true);
+                                $mail->CharSet = "UTF-8";
+                                $mail->SMTPDebug = 3;
+                                $mail->Username = "classchat10@gmail.com";
+                                $mail->Password = "ppsx ozyl tbrp qlse";
+                                $mail->SetFrom("classchat10@gmail.com", "ClassChat");
+                                $mail->Subject = "Email Verification";
+                                $mail->Body = "Your 6 Digit Verification Code: " . $otp_code;
+                                $mail->AddAddress($email);
+                                $mail->SMTPOptions = array('ssl' => array(
+                                    'verify_peer' => false,
+                                    'verify_peer_name' => false,
+                                    'allow_self_signed' => false
+                                ));
+
+                                //check if it is successfully send
+                                if (!$mail->Send()) {
+                                    echo $mail->ErrorInfo;
+                                } else {
+                                    session_start();
+
+                                    $_SESSION['users_id'] = $id_number;
+                                    $_SESSION['users_name'] = $name;
+                                    $_SESSION['users_password'] = $password;
+                                    $_SESSION['users_email'] = $email;
+                                    $_SESSION['verification_code'] = $otp_code;
+                                    $_SESSION['verification_code_timestamp'] = time();
+                                    $_SESSION['verification_msg'] = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
+                                    header('location: verification_employee.php');
+                                }
+                            } else {
+                                $password_error = "Password must 10 characters long";
+                                $confirm_password_error = "Password must 10 characters long";
+                            }
+                        } else {
+                            $password_error = "Password must contain characters !@$%&";
+                            $confirm_password_error = "Password must contain characters !@$%&";
+                        }
+                    } else {
                         $password_error = "Password did not match";
                         $confirm_password_error = "Password did not match";
                     }
-                }else{
+                } else {
                     $email_exist_error = "Email is Already Exists!";
                 }
-            }else{
+            } else {
                 $email_error = "Invalid email! Use @carsu.edu.ph";
             }
-        }else{
+        } else {
             $id_exist_error = "Employee Number is Already Exists!";
             $name_error = null;
             $email_error = null;
@@ -222,6 +274,53 @@ if (isset($_POST['signupEmployee_btn'])) {
 }
 
 if (isset($_POST['btn-verify'])) {
+    // Assuming you have already generated and stored the verification code in a session variable
+    $generated_code = $_SESSION['verification_code'];
+    $timestamp_generated = $_SESSION['verification_code_timestamp'];
+
+    //variables to be input in the database
+    $id_number = $_SESSION['users_id'];
+    $name = $_SESSION['users_name'];
+    $email = $_SESSION['users_email'];
+    $password = $_SESSION['users_password'];
+    // Collect user input from the form
+    $user_input = '';
+    for ($i = 1; $i <= 6; $i++) {
+        $input_name = 'code' . $i;
+        if (isset($_POST[$input_name])) {
+            $user_input .= $_POST[$input_name];
+        }
+    }
+
+    $user_input = trim($user_input);
+    $generated_code = trim($generated_code);
+
+    // Compare user input with the generated code
+    if ($user_input === $generated_code) {
+        $current_timestamp = time();
+        $time_difference = $current_timestamp - $timestamp_generated;
+
+        $verification_time_limit = 60;
+
+        if ($time_difference <= $verification_time_limit) {
+            //encrypt the password
+            $password_encrypted = md5($password);
+
+            $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
+                                VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
+            mysqli_query($conn, $query);
+            header('location: try.php');
+        }else{
+            // Verification code has expired
+            echo "Verification code has expired!";
+        }
+    } else {
+        // Verification failed, display an error message or redirect
+        echo "Verification failed!";
+    }
+}
+
+if (isset($_POST['btn-verify-employee'])) {
     // Assuming you have already generated and stored the verification code in a session variable
     $generated_code = $_SESSION['verification_code'];
 
@@ -247,7 +346,7 @@ if (isset($_POST['btn-verify'])) {
         //encrypt the password
         $password_encrypted = md5($password);
 
-        $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
+        $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
         mysqli_query($conn, $query);
         header('location: try.php');
