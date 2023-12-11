@@ -90,7 +90,7 @@ include('backend.php');
                     </div>
                     <div class="mb-3">
                         <label for="passwordStudent" id="password_label" class="form-label fw-bold error-input">PASSWORD:</label>
-                        <input type="password" class="form-control error-input" id="passwordStudent" name="passwordStudent" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $user_password ?>">
+                        <input type="password" class="form-control error-input" id="passwordStudent" name="passwordStudent" style="background-color: rgba(135, 139, 243, .5);" value="">
                         <p class="error password_error text-danger">
                             <?php echo $password_error ?>
                         </p>

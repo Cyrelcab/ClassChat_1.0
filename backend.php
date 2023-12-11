@@ -273,10 +273,10 @@ if (isset($_POST['btn-verify'])) {
     $timestamp_generated = $_SESSION['verification_code_timestamp'];
 
     //variables to be input in the database
-    $id_number = $_SESSION['users_id'];
-    $name = $_SESSION['users_name'];
-    $email = $_SESSION['users_email'];
-    $password = $_SESSION['users_password'];
+    $id_number = trim($_SESSION['users_id']);
+    $name = trim($_SESSION['users_name']);
+    $email = trim($_SESSION['users_email']);
+    $password = trim($_SESSION['users_password']);
     // Collect user input from the form
     $user_input = '';
     for ($i = 1; $i <= 6; $i++) {
@@ -320,10 +320,10 @@ if (isset($_POST['btn-verify-employee'])) {
     $generated_code = $_SESSION['verification_code'];
 
     //variables to be input in the database
-    $id_number = $_SESSION['users_id'];
-    $name = $_SESSION['users_name'];
-    $email = $_SESSION['users_email'];
-    $password = $_SESSION['users_password'];
+    $id_number = trim($_SESSION['users_id']);
+    $name = trim($_SESSION['users_name']);
+    $email = trim($_SESSION['users_email']);
+    $password = trim($_SESSION['users_password']);
     // Collect user input from the form
     $user_input = '';
     for ($i = 1; $i <= 6; $i++) {
@@ -385,6 +385,8 @@ if (isset($_POST['login_student_btn'])) {
                         exit();
                     } else {
                         $password_error = 'Incorrect Password';
+                        echo "Entered Password: $user_password<br>";
+                        echo "Hashed Password from Database: $hashed_password<br>";
                     }
                 } else {
                     $user_error = 'Student Account not found';
