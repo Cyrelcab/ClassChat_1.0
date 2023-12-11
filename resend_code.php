@@ -43,5 +43,5 @@ if (!$mail->Send()) {
     $_SESSION['verification_msg'] = "We resent the six-digit code to " . $email . ". Please check your email.";
 
     // Redirect back to the verification page
-    header('location: verification.php');
+    header('location: verification_student.php');
 }

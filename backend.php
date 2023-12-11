@@ -20,6 +20,8 @@ $password = null;
 $confirm_password = null;
 $id_error = null;
 $id_exist_error = null;
+$user_error = null;
+$user_password = null;
 $name_error = null;
 $email_error = null;
 $email_exist_error = null;
@@ -263,14 +265,6 @@ if (isset($_POST['signupEmployee_btn'])) {
             $confirm_password_error = null;
         }
     }
-    // //encrypt the password
-    // $password_encrypted = md5($password);
-
-    // //inserting the data into employee_table
-    // // $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password) 
-    // // 		  VALUES('$employee_number', '$name', '$email', '$password_encrypted')";
-    // // mysqli_query($conn, $query);
-    // // header('location: try.php');
 }
 
 if (isset($_POST['btn-verify'])) {
@@ -304,12 +298,13 @@ if (isset($_POST['btn-verify'])) {
 
         if ($time_difference <= $verification_time_limit) {
             //encrypt the password
-            $password_encrypted = md5($password);
+            $password_encrypted = password_hash($password, PASSWORD_DEFAULT);
 
             $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
             mysqli_query($conn, $query);
-            header('location: try.php');
+            $_SESSION['idNumber'] = $id_number;
+            header('location: dashboard_student.php');
         }else{
             // Verification code has expired
             echo "Verification code has expired!";
@@ -344,7 +339,7 @@ if (isset($_POST['btn-verify-employee'])) {
     // Compare user input with the generated code
     if ($user_input === $generated_code) {
         //encrypt the password
-        $password_encrypted = md5($password);
+        $password_encrypted = password_hash($password, PASSWORD_DEFAULT);
 
         $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
@@ -353,5 +348,56 @@ if (isset($_POST['btn-verify-employee'])) {
     } else {
         // Verification failed, display an error message or redirect
         echo "Verification failed!";
+    }
+}
+
+if (isset($_POST['login_student_btn'])) {
+    $id_number = trim($_POST['idNumber']);
+    $user_password = trim($_POST['passwordStudent']);
+
+    if (empty($id_number)) {
+        $id_error = "ID Field is empty!";
+    }
+    else if (empty($user_password)) {
+        $password_error = "Password Field is empty!";
+    } else {
+        // No need to hash the password here
+        $query = "SELECT * FROM student_table WHERE ID_number = ?";
+        $stmt = mysqli_prepare($conn, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $id_number);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+
+                if ($row) {
+                    $hashed_password = $row['Password'];
+
+                    // Check if the password matches
+                    if (password_verify($user_password, $hashed_password)) {
+                        $_SESSION['idNumber'] = $id_number;
+                        $_SESSION['success'] = 'You are successfully logged in!';
+                        header('location: dashboard_student.php');
+                        exit();
+                    } else {
+                        $password_error = 'Incorrect Password';
+                    }
+                } else {
+                    $user_error = 'Student Account not found';
+                }
+
+                mysqli_stmt_close($stmt);
+            } else {
+                echo 'Error in result: ' . mysqli_error($conn);
+            }
+        } else {
+            echo "Error in statement: " . mysqli_error($conn);
+        }
+
+        mysqli_close($conn);
     }
 }
