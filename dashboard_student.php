@@ -3,6 +3,7 @@ session_start();
 
 if (!isset($_SESSION['idNumber'])) {
     header('location: login_student.php');
+    exit();
 }
 if (isset($_GET['logout'])) {
     session_destroy();
