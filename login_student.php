@@ -1,3 +1,5 @@
+<?php include('backend.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,17 +30,17 @@
                 <a href="index.php" type="button" class="btn-close float-end" aria-label="Close"></a>
                 <h2 class="text-center pt-3">Login - Student</h2>
 
-                <form class="px-3 py-4" autocomplete="off">
+                <form class="px-3 py-4" autocomplete="off" method="POST">
                     <div class="mb-3">
                         <label for="idNumber" class="form-label fw-bold">ID NUMBER:</label>
-                        <input type="text" class="form-control" id="idNumber" aria-describedby="idNumber" style="background-color: rgba(135, 139, 243, .5);">
+                        <input type="text" class="form-control" id="idNumber" name="idNumber" aria-describedby="idNumber" style="background-color: rgba(135, 139, 243, .5);">
                     </div>
                     <div class="mb-3">
                         <label for="passwordStudent" class="form-label fw-bold">PASSWORD:</label>
-                        <input type="password" class="form-control" id="passwordStudent" style="background-color: rgba(135, 139, 243, .5);">
+                        <input type="password" class="form-control" id="passwordStudent" name="password" style="background-color: rgba(135, 139, 243, .5);">
                     </div>
                     <div class="justify-content-center align-items-center d-flex">
-                        <button type="submit" class="btn fw-semibold fs-6" style="background-color: #D250FF; width: 100px;">Login</button>
+                        <button type="submit" class="btn fw-semibold fs-6" style="background-color: #D250FF; width: 100px;" name="login_student">Login</button>
                     </div>
                 </form>
             </div>

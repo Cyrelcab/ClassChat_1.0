@@ -83,8 +83,8 @@ if (isset($_POST['signupStudent_btn'])) {
                         //check if the password contains special characters like !@$%&
                         if (preg_match('/[!@$%&]/', $password)) {
 
-                            //check if the password is 10 characters long
-                            if (strlen($password) === 10) {
+                            //check if the password is 12 characters long
+                            if (strlen($password) >= 12) {
 
                                 //generate code to send in email
                                 $otp_code = rand(100000, 999999);
@@ -124,11 +124,11 @@ if (isset($_POST['signupStudent_btn'])) {
                                     $_SESSION['verification_code'] = $otp_code;
                                     $_SESSION['verification_code_timestamp'] = time();
                                     $_SESSION['verification_msg'] = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
-                                    header('location: verification.php');
+                                    header('location: verification_student.php');
                                 }
                             } else {
-                                $password_error = "Password must 10 characters long";
-                                $confirm_password_error = "Password must 10 characters long";
+                                $password_error = "Password must atleast 12 characters long";
+                                $confirm_password_error = "Password must atleast 12 characters long";
                             }
                         } else {
                             $password_error = "Password must contain characters !@$%&";
@@ -195,8 +195,8 @@ if (isset($_POST['signupEmployee_btn'])) {
                     if ($password === $confirm_password) {
                         //check if the password contains special characters like !@$%&
                         if (preg_match('/[!@$%&]/', $password)) {
-                            //check if the password is 10 characters long
-                            if (strlen($password) === 10) {
+                            //check if the password is 12 characters long
+                            if (strlen($password) >= 12) {
                                 //generate code to send in email
                                 $otp_code = rand(100000, 999999);
 
@@ -238,8 +238,8 @@ if (isset($_POST['signupEmployee_btn'])) {
                                     header('location: verification_employee.php');
                                 }
                             } else {
-                                $password_error = "Password must 10 characters long";
-                                $confirm_password_error = "Password must 10 characters long";
+                                $password_error = "Password must atleast 12 characters long";
+                                $confirm_password_error = "Password must atleast 12 characters long";
                             }
                         } else {
                             $password_error = "Password must contain characters !@$%&";

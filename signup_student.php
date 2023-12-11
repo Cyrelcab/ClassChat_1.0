@@ -178,7 +178,7 @@
                     <!---password field--->
                     <div class="mb-3">
                         <label for="passwordStudentSignup" id="password_label" class="form-label fw-bold error-input">Password</label>
-                        <input type="password" class="form-control error-input" id="passwordStudentSignup" name="passwordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $password ?>">
+                        <input type="password" class="form-control error-input" id="passwordStudentSignup" name="passwordStudentSignup" placeholder='must contain "!@$%&" and atleast 12 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $password ?>">
                         <p class="error password_error text-danger">
                             <?php echo $password_error ?>
                         </p>
@@ -187,7 +187,7 @@
                     <!--confirm password field--->
                     <div class="mb-3">
                         <label for="confirmPasswordStudentSignup" id="confirm_password_label" class="form-label fw-bold error-input">Confirm Password</label>
-                        <input type="password" class="form-control error-input" id="confirmPasswordStudentSignup" name="confirmPasswordStudentSignup" placeholder='must contain "!@$%&" and 10 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $confirm_password ?>">
+                        <input type="password" class="form-control error-input" id="confirmPasswordStudentSignup" name="confirmPasswordStudentSignup" placeholder='must contain "!@$%&" and atleast 12 characters long' style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $confirm_password ?>">
                         <p class="error confirm_password_error text-danger">
                             <?php echo $confirm_password_error ?>
                         </p>
