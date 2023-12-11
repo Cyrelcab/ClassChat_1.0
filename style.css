@@ -12,7 +12,6 @@ html::-webkit-scrollbar {
   display: none;
 }
 body {
-  background: url("image/background-color.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "Poppins", sans-serif;

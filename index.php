@@ -259,6 +259,7 @@
     });
   </script>
   <!--end of script for automatically close toggler-->
+  <script src="background.js"></script>
 
 
 </body>

@@ -1,4 +1,6 @@
-<?php require('backend.php'); ?>
+<?php 
+session_start();
+include('backend.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,12 +133,24 @@
 <body>
 
     <!--form-->
-    <div class="d-flex justify-content-center align-items-center my-5">
+    <div class="d-flex justify-content-center align-items-center py-5">
         <div class="card card-custom" style="width: 40%; border: 4px solid #A401DD;">
             <div class="card-body">
                 <a href="index.php" type="button" class="btn-close float-end" aria-label="Close"></a>
 
-                <h2 class="text-center pt-3">Student - Employee</h2>
+                <h2 class="text-center pt-3">Signup - Employee</h2>
+                <p class="error_exist id_exist_error text-danger text-center">
+                    <?php echo $id_exist_error ?>
+                </p>
+                <p class="error_exist email_exist_error text-danger text-center">
+                    <?php echo $email_exist_error ?>
+                </p>
+                <?php if (isset($_SESSION['msg']) && !empty($_SESSION['msg'])) : ?>
+                    <p class="error_exist text-danger text-center" style="display: block !important;">
+                        <?php echo $_SESSION['msg']; ?>
+                    </p>
+                    <?php unset($_SESSION['msg']); ?>
+                <?php endif; ?>
 
                 <form class="px-3 py-4" method="POST" autocomplete="off">
                     <!--name field-->
@@ -190,10 +204,13 @@
                         <button type="submit" class="btn fw-semibold fs-6 text-white" name='signupEmployee_btn' style="background-color: #3A48B6; width: 100px;">Signup</button>
                     </div>
                 </form>
+                <div class="px-3">
+                    <p class="text-dark fw-semibold">Already have an Account? <a href="login_employee.php" class="text-decoration-none" style="color: #3A48B6;">Login</a></p>
+                </div>
             </div>
         </div>
     </div>
-
+    <script src="background.js"></script>
 </body>
 
 </html>

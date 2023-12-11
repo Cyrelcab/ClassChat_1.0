@@ -303,7 +303,7 @@ if (isset($_POST['btn-verify'])) {
             $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
             mysqli_query($conn, $query);
-            $_SESSION['idNumber'] = $id_number;
+            $_SESSION['idNumberStudent'] = $id_number;
             header('location: dashboard_student.php');
         }else{
             // Verification code has expired
@@ -344,7 +344,8 @@ if (isset($_POST['btn-verify-employee'])) {
         $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
         mysqli_query($conn, $query);
-        header('location: try.php');
+        $_SESSION['idNumberEmployee'] = $id_number;
+        header('location: dashboard_employee.php');
     } else {
         // Verification failed, display an error message or redirect
         echo "Verification failed!";
@@ -358,10 +359,12 @@ if (isset($_POST['login_student_btn'])) {
     if (empty($id_number)) {
         $id_error = "ID Field is empty!";
     }
-    else if (empty($user_password)) {
+
+    if (empty($user_password)) {
         $password_error = "Password Field is empty!";
-    } else {
-        // No need to hash the password here
+    }
+    
+    if (empty($id_error) && empty($password_error)){
         $query = "SELECT * FROM student_table WHERE ID_number = ?";
         $stmt = mysqli_prepare($conn, $query);
 
@@ -377,16 +380,72 @@ if (isset($_POST['login_student_btn'])) {
                 if ($row) {
                     $hashed_password = $row['Password'];
 
-                    // Check if the password matches
-                    if (password_verify($user_password, $hashed_password)) {
-                        $_SESSION['idNumber'] = $id_number;
+                    $checkPassword = fn($password) => password_verify($password, $hashed_password);
+
+                    if ($checkPassword($user_password)) {
+                        $_SESSION['idNumberStudent'] = $id_number;
+                        $_SESSION['last_login_timestamp'] = time();
                         $_SESSION['success'] = 'You are successfully logged in!';
                         header('location: dashboard_student.php');
                         exit();
                     } else {
                         $password_error = 'Incorrect Password';
-                        echo "Entered Password: $user_password<br>";
-                        echo "Hashed Password from Database: $hashed_password<br>";
+                    }
+                } else {
+                    $user_error = 'Student Account not found';
+                }
+
+                mysqli_stmt_close($stmt);
+            } else {
+                echo 'Error in result: ' . mysqli_error($conn);
+            }
+        } else {
+            echo "Error in statement: " . mysqli_error($conn);
+        }
+
+        mysqli_close($conn);
+    }
+}
+
+if (isset($_POST['login_employee_btn'])) {
+    $id_number = trim($_POST['employeeNumber']);
+    $user_password = trim($_POST['passwordEmployee']);
+
+    if (empty($id_number)) {
+        $id_error = "ID Field is empty!";
+    }
+    
+    if (empty($user_password)) {
+        $password_error = "Password Field is empty!";
+    } 
+    
+    if(empty($id_error) && empty($password_error)) {
+        $query = "SELECT * FROM employee_table WHERE Employee_number = ?";
+        $stmt = mysqli_prepare($conn, $query);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $id_number);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+
+                if ($row) {
+                    $hashed_password = $row['Password'];
+
+                    $checkPassword = fn($password) => password_verify($password, $hashed_password);
+
+                    if ($checkPassword($user_password)) {
+                        $_SESSION['idNumberEmployee'] = $id_number;
+                        $_SESSION['users_name'] = $row['Name'];
+                        $_SESSION['last_login_timestamp'] = time();
+                        $_SESSION['success'] = 'You are successfully logged in!';
+                        header('location: dashboard_employee.php');
+                        exit();
+                    } else {
+                        $password_error = 'Incorrect Password';
                     }
                 } else {
                     $user_error = 'Student Account not found';

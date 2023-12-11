@@ -1,6 +1,13 @@
 <?php
 session_start();
-include('backend.php'); ?>
+include('backend.php'); 
+
+if (!isset($_SESSION['verification_code'])) {
+    $_SESSION['msg'] = 'You must signup first!';
+    header('location: signup_employee.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,6 +59,7 @@ include('backend.php'); ?>
 
         <script src="verification.js"></script>
         <script src="countdown.js"></script>
+        <script src="background.js"></script>
 </body>
 
 </html>

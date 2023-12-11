@@ -1,4 +1,6 @@
-<?php require('backend.php'); ?>
+<?php 
+session_start();
+include('backend.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,7 +134,7 @@
 <body>
 
     <!--form-->
-    <div class="d-flex justify-content-center align-items-center my-5">
+    <div class="d-flex justify-content-center align-items-center py-5">
         <div class="card card-custom" style="width: 40%; border: 4px solid #A401DD;">
             <div class="card-body">
                 <a href="index.php" type="button" class="btn-close float-end" aria-label="Close"></a>
@@ -145,6 +147,12 @@
                 <p class="error_exist email_exist_error text-danger text-center">
                     <?php echo $email_exist_error ?>
                 </p>
+                <?php if (isset($_SESSION['msg']) && !empty($_SESSION['msg'])) : ?>
+                    <p class="error_exist text-danger text-center" style="display: block !important;">
+                        <?php echo $_SESSION['msg']; ?>
+                    </p>
+                    <?php unset($_SESSION['msg']); ?>
+                <?php endif; ?>
 
                 <form class="px-3 py-2" method="POST" autocomplete="off" id="studentSignupForm">
 
@@ -196,6 +204,9 @@
                         <button type="submit" class="btn fw-semibold fs-6 text-white" name="signupStudent_btn" style="background-color: #D250FF; width: 100px;">Signup</button>
                     </div>
                 </form>
+                <div class="px-3 pt-3">
+                    <p class="text-dark fw-semibold">Already have an Account? <a href="login_student.php" class="text-decoration-none" style="color: #D250FF;">Login</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -205,7 +216,7 @@
     <script>
         AOS.init();
     </script>
-
+    <script src="background.js"></script>
 </body>
 
 </html>
