@@ -30,6 +30,11 @@ header("Content-Security-Policy: img-src * data:");
 
     <!-- font awesome  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+
+    <!--script for googlereCAPTCHA API-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--script for ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <?php
     if ($user_error != null) {
     ?><style>
@@ -96,8 +101,6 @@ header("Content-Security-Policy: img-src * data:");
 </head>
 
 <body>
-    <div id="preloader-line"></div>
-
 
     <!--form-->
     <div class="d-flex justify-content-center align-items-center my-5">
@@ -116,7 +119,7 @@ header("Content-Security-Policy: img-src * data:");
                     <?php session_destroy();?>
                 <?php endif; ?>
 
-                <form class="px-3 py-4" autocomplete="off" method="POST">
+                <form class="px-3 py-4" autocomplete="off" method="POST" id="login_student_id">
                     <div class="mb-3">
                         <label for="idNumber" id="id_number_label" class="form-label fw-bold error-input">ID NUMBER:</label>
                         <input type="text" class="form-control error-input" id="idNumber" name="idNumber" aria-describedby="idNumber" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $id_number ?>">
@@ -139,8 +142,14 @@ header("Content-Security-Policy: img-src * data:");
                             <?php echo $password_error ?>
                         </p>
                     </div>
+                    <!--recaptcha div-->
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <div class="g-recaptcha" data-sitekey="6Ld1ey4pAAAAALZLPhnn52XN6GDpESZqlPAYafHP"></div>
+                    </div>
+                    <!--end of recaptcha div-->
+
                     <div class="justify-content-center align-items-center d-flex">
-                        <button type="submit" class="btn fw-semibold fs-6 text-white" style="background-color: #D250FF; width: 100px;" name="login_student_btn">Login</button>
+                        <button type="submit" class="btn fw-semibold fs-6 text-white" style="background-color: #D250FF; width: 100px;" id="login_student_btn" name="login_student_btn">Login</button>
                     </div>
                 </form>
                 <div class="px-3">
@@ -168,6 +177,15 @@ header("Content-Security-Policy: img-src * data:");
                 hideEyeIcon.classList.remove('d-none');
             }
         });
+    </script>
+    <script>
+        $(document).on('click', '#login_student_btn', function(){
+            var response = grecaptcha.getResponse();
+            if(response.length == 0){
+                alert('Please check the reCAPTCHA before submitting the form.');
+                return false;
+            }
+        })
     </script>
 
 </body>

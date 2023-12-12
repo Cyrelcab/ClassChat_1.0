@@ -29,6 +29,11 @@ header("Content-Security-Policy: img-src * data:");
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <!-- font awesome  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+
+    <!--script for googlereCAPTCHA API-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--script for ajax-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <?php
     if ($user_error != null) {
     ?><style>
@@ -136,8 +141,13 @@ header("Content-Security-Policy: img-src * data:");
                             <?php echo $password_error ?>
                         </p>
                     </div>
+                    <!--recaptcha div-->
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <div class="g-recaptcha" data-sitekey="6Ld1ey4pAAAAALZLPhnn52XN6GDpESZqlPAYafHP"></div>
+                    </div>
+                    <!--end of recaptcha div-->
                     <div class="justify-content-center align-items-center d-flex">
-                        <button type="submit" class="btn fw-semibold fs-6 text-white" style="background-color: #3A48B6; width: 100px;" name="login_employee_btn">Login</button>
+                        <button type="submit" class="btn fw-semibold fs-6 text-white" style="background-color: #3A48B6; width: 100px;" id="login_employee_btn" name="login_employee_btn">Login</button>
                     </div>
                 </form>
                 <div class="px-3">
@@ -164,6 +174,15 @@ header("Content-Security-Policy: img-src * data:");
                 hideEyeIcon.classList.remove('d-none');
             }
         });
+    </script>
+    <script>
+        $(document).on('click', '#login_employee_btn', function(){
+            var response = grecaptcha.getResponse();
+            if(response.length == 0){
+                alert('Please check the reCAPTCHA before submitting the form.');
+                return false;
+            }
+        })
     </script>
 </body>
 

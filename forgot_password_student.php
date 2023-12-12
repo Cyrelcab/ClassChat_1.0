@@ -157,7 +157,7 @@ header("Content-Security-Policy: img-src * data:");
                     </div>
                 </form>
                 <div class="px-3">
-                    <p class="text-dark fw-semibold">Already have an Account? <a href="forgot_password_student.php" class="text-decoration-none" style="color:  #D250FF;">Login</a></p>
+                    <p class="text-dark fw-semibold">Already have an Account? <a href="login_student.php" class="text-decoration-none" style="color:  #D250FF;">Login</a></p>
                     <p class="text-dark fw-semibold">Don't have an Account? <a href="signup_student.php" class="text-decoration-none" style="color:  #D250FF;">Signup</a></p>
                 </div>
             </div>

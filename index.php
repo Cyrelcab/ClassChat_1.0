@@ -213,18 +213,8 @@ header("Content-Security-Policy: img-src * data:");
           <div>
             <hr class="w-100" />
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-            dolor maiores sint temporibus cumque vitae blanditiis tenetur
-            alias laudantium, voluptate provident. Eius consectetur quod iusto
-            corrupti nisi doloribus ratione facilis. Lorem ipsum, dolor sit
-            amet consectetur adipisicing elit. Nisi, molestias maiores cumque,
-            iste voluptate fugiat at saepe libero facilis, magnam nostrum
-            quis. Mollitia voluptas recusandae ratione ipsam aliquid
-            laboriosam repellendus. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Praesentium quae facilis eum maiores dolore
-            temporibus in. Libero, doloremque labore similique provident nisi
-            distinctio eligendi earum voluptas maiores veniam eos. Culpa?
+          <p class="fs-5">
+          ClassChat is an innovative educational platform that facilitates seamless communication and collaboration among students and teachers within an academic setting. ClassChat stands out for its ability to swiftly connect users to the right group chats per subject with unparalleled speed.
           </p>
         </div>
       </div>
@@ -244,18 +234,8 @@ header("Content-Security-Policy: img-src * data:");
           <div>
             <hr class="w-100" />
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-            dolor maiores sint temporibus cumque vitae blanditiis tenetur
-            alias laudantium, voluptate provident. Eius consectetur quod iusto
-            corrupti nisi doloribus ratione facilis. Lorem ipsum, dolor sit
-            amet consectetur adipisicing elit. Nisi, molestias maiores cumque,
-            iste voluptate fugiat at saepe libero facilis, magnam nostrum
-            quis. Mollitia voluptas recusandae ratione ipsam aliquid
-            laboriosam repellendus. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Praesentium quae facilis eum maiores dolore
-            temporibus in. Libero, doloremque labore similique provident nisi
-            distinctio eligendi earum voluptas maiores veniam eos. Culpa?
+          <p class="fs-5">
+          ClassChat offers a range of features aimed at fostering effective communication. It provides a centralized space where teachers can share resources, assignments, announcements, and important updates with their students. Students, in turn, can ask questions, engage in discussions, submit assignments, and collaborate on group projects within the platform.
           </p>
         </div>
       </div>
