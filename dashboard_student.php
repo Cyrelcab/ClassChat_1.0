@@ -11,6 +11,7 @@ if (!isset($_SESSION['idNumberStudent'])) {
     $sessionTimeout = 60; // Set the session timeout limit in seconds
 
     if (time() - $_SESSION['last_activity_timestamp'] > $sessionTimeout) {
+        unset($_SESSION['idNumberStudent']);
         $_SESSION['msg'] = 'Session Expired!';
         header('location: login_student.php');
         exit();
@@ -59,6 +60,7 @@ header("Content-Security-Policy: img-src * data:");
     }
     ?>
     <h1>try ra ni</h1>
+    <button type="button"><a href="try.php">Click me</a></button>
     <button type="button"><a href="dashboard_student.php?logout='1'">Logout</a></button>
 </body>
 

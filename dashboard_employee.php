@@ -4,7 +4,7 @@ session_start();
 // Check if the student is not logged in
 if (!isset($_SESSION['idNumberEmployee'])) {
     $_SESSION['msg'] = 'You must log in first!';
-    header('location: login_student.php');
+    header('location: login_employee.php');
     exit();
 } elseif (isset($_SESSION['idNumberEmployee'])) {
     // Check if the session has expired
@@ -12,7 +12,7 @@ if (!isset($_SESSION['idNumberEmployee'])) {
 
     if (time() - $_SESSION['last_activity_timestamp'] > $sessionTimeout) {
         $_SESSION['msg'] = 'Session Expired!';
-        header('location: login_student.php');
+        header('location: login_employee.php');
         exit();
     } else {
         // Update the last activity timestamp for the active session

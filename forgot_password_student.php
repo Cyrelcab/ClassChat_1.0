@@ -14,7 +14,7 @@ header("Content-Security-Policy: img-src * data:");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Student</title>
+    <title>Forgot Password - Student</title>
     <link rel="stylesheet" href="style.css" />
 
     <!--stylesheet using bootstrap5-->
@@ -96,15 +96,13 @@ header("Content-Security-Policy: img-src * data:");
 </head>
 
 <body>
-    <div id="preloader-line"></div>
-
 
     <!--form-->
     <div class="d-flex justify-content-center align-items-center my-5">
         <div class="card card-custom my-5" style="width: 40%; border: 4px solid #A401DD;">
             <div class="card-body">
                 <a href="index.php" type="button" class="btn-close float-end" aria-label="Close"></a>
-                <h2 class="text-center pt-3">Login - Student</h2>
+                <h2 class="text-center pt-3">Forgot Password - Student</h2>
                 <p class="error_exist user_error text-danger text-center">
                     <?php echo $user_error ?>
                 </p>
@@ -125,7 +123,22 @@ header("Content-Security-Policy: img-src * data:");
                         </p>
                     </div>
                     <div class="mb-3">
-                        <label for="passwordStudent" id="password_label" class="form-label fw-bold error-input">PASSWORD:</label>
+                        <label for="passwordStudent" id="password_label" class="form-label fw-bold error-input">NEW PASSWORD:</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control error-input" id="passwordStudent" name="passwordStudent" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $user_password ?>">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline " type="button" id="togglePassword" style="background-color: rgba(135, 139, 243, .5); border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 10px; padding-right: 10px;">
+                                    <i class="fas fa-eye d-none" id="show_eye"></i>
+                                    <i class="fas fa-eye-slash" id="hide_eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="error password_error text-danger">
+                            <?php echo $password_error ?>
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordStudent" id="password_label" class="form-label fw-bold error-input">CONFIRM PASSWORD:</label>
                         <div class="input-group">
                             <input type="password" class="form-control error-input" id="passwordStudent" name="passwordStudent" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $user_password ?>">
                             <div class="input-group-append">
@@ -144,7 +157,7 @@ header("Content-Security-Policy: img-src * data:");
                     </div>
                 </form>
                 <div class="px-3">
-                    <p class="text-dark fw-semibold"><a href="forgot_password_student.php" class="text-decoration-none" style="color:  #D250FF;">Forgot Password?</a></p>
+                    <p class="text-dark fw-semibold">Already have an Account? <a href="forgot_password_student.php" class="text-decoration-none" style="color:  #D250FF;">Login</a></p>
                     <p class="text-dark fw-semibold">Don't have an Account? <a href="signup_student.php" class="text-decoration-none" style="color:  #D250FF;">Signup</a></p>
                 </div>
             </div>
