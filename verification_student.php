@@ -7,6 +7,13 @@ if (!isset($_SESSION['verification_code'])) {
     header('location: signup_student.php');
     exit();
 }
+
+// Set CSP header
+header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.com");
+header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
+header("Content-Security-Policy: img-src * data:");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +29,15 @@ if (!isset($_SESSION['verification_code'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+    <!--style for background so that it will render fast-->
+    <style>
+        body {
+            background-image: url('image/background-color.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 
 </head>
 
@@ -59,7 +75,6 @@ if (!isset($_SESSION['verification_code'])) {
 
         <script src="verification.js"></script>
         <script src="countdown.js"></script>
-        <script src="background.js"></script>
 
 </body>
 

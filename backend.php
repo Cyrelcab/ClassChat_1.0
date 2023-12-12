@@ -384,7 +384,7 @@ if (isset($_POST['login_student_btn'])) {
 
                     if ($checkPassword($user_password)) {
                         $_SESSION['idNumberStudent'] = $id_number;
-                        $_SESSION['last_login_timestamp'] = time();
+                        $_SESSION['last_activity_timestamp'] = time();
                         $_SESSION['success'] = 'You are successfully logged in!';
                         header('location: dashboard_student.php');
                         exit();
@@ -440,7 +440,7 @@ if (isset($_POST['login_employee_btn'])) {
                     if ($checkPassword($user_password)) {
                         $_SESSION['idNumberEmployee'] = $id_number;
                         $_SESSION['users_name'] = $row['Name'];
-                        $_SESSION['last_login_timestamp'] = time();
+                        $_SESSION['last_activity_timestamp'] = time();
                         $_SESSION['success'] = 'You are successfully logged in!';
                         header('location: dashboard_employee.php');
                         exit();

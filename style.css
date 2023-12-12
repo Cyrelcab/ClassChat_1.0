@@ -12,8 +12,6 @@ html::-webkit-scrollbar {
   display: none;
 }
 body {
-  background-size: cover;
-  background-repeat: no-repeat;
   font-family: "Poppins", sans-serif;
 }
 .background-color {
@@ -33,6 +31,7 @@ body {
 .btn-width {
   width: 100px;
 }
+
 
 /*style for error messages*/
 .error {
@@ -91,18 +90,8 @@ body {
   display: flex;
   justify-content: end;
 }
-/* .custom-margin-bottom-about {
-  margin-bottom: 100px;
-  padding-top: 130px;
-} */
-/*end of about section*/
-
-/*style for service section*/
-/* .custom-margin-top-service {
-  margin-bottom: 100px;
-  padding-top: 130px;
-} */
 /*end of service section*/
+
 
 /*verification style*/
 .verification-body{

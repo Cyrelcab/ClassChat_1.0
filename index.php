@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+if (isset($_SESSION['idNumberStudent'])) {
+  header('location: dashboard_student.php');
+  exit();
+}
+
+if (isset($_SESSION['idNumberEmployee'])) {
+  header('location: dashboard_employee.php');
+  exit();
+}
+
+// Set CSP header
+header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.com");
+header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
+header("Content-Security-Policy: img-src * data:");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +36,13 @@
 
   <!--for animations-->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      background-image: url('image/background-color.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 
 <body>
@@ -259,9 +285,18 @@
     });
   </script>
   <!--end of script for automatically close toggler-->
-  <script src="background.js"></script>
+  <!-- <script src="background.js"></script> -->
 
+  <!--preloader-->
+  <script>
+    window.addEventListener('load', function() {
+      var preloader = document.getElementById('preloader');
+      preloader.style.display = 'none';
 
+      // Remove the overflow: hidden style from the body
+      document.body.classList.remove('preloader-hidden');
+    });
+  </script>
 </body>
 
 </html>

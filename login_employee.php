@@ -1,6 +1,12 @@
 <?php
 session_start();
 include('backend.php');
+
+// Set CSP header
+header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.com");
+header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
+header("Content-Security-Policy: img-src * data:");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +14,7 @@ include('backend.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup - Student</title>
+    <title>Login - Employee</title>
     <link rel="stylesheet" href="style.css" />
 
     <!--stylesheet using bootstrap5-->
@@ -21,6 +27,8 @@ include('backend.php');
 
     <!--for animations-->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- font awesome  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <?php
     if ($user_error != null) {
     ?><style>
@@ -75,6 +83,15 @@ include('backend.php');
             }
         </style><?php
             } ?>
+
+    <!--style for background so that it will render fast-->
+    <style>
+        body {
+            background-image: url('image/background-color.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body>
@@ -93,26 +110,28 @@ include('backend.php');
                         <?php echo $_SESSION['msg']; ?>
                     </p>
                     <?php unset($_SESSION['msg']); ?>
-                <?php endif; ?>
-                <?php if (isset($_SESSION['session_expired']) && !empty($_SESSION['session_expired'])) : ?>
-                    <p class="error_exist text-danger text-center" style="display: block !important;">
-                        <?php echo $_SESSION['session_expired']; ?>
-                    </p>
-                    <?php unset($_SESSION['session_expired']); ?>
+                    <?php session_destroy();?>
                 <?php endif; ?>
 
                 <form class="px-3 py-4" autocomplete="off" method="POST">
                     <div class="mb-3">
-                        <label for="employeeNumber"  id="id_number_label" class="form-label fw-bold error-input">EMPLOYEE NUMBER:</label>
-                        <input type="text" class="form-control error-input" id="employeeNumber" name="employeeNumber" aria-describedby="employeeNumber" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $id_number?>">
+                        <label for="employeeNumber" id="id_number_label" class="form-label fw-bold error-input">EMPLOYEE NUMBER:</label>
+                        <input type="text" class="form-control error-input" id="employeeNumber" name="employeeNumber" aria-describedby="employeeNumber" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $id_number ?>">
                         <p class="error id_error text-danger">
                             <?php echo $id_error ?>
                         </p>
                     </div>
                     <div class="mb-3">
                         <label for="passwordEmployee" id="password_label" class="form-label fw-bold error-input">PASSWORD:</label>
-                        <input type="password" class="form-control error-input" id="passwordEmployee" 
-                        name="passwordEmployee" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $user_password?>">
+                        <div class="input-group">
+                            <input type="password" class="form-control error-input" id="passwordEmployee" name="passwordEmployee" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $user_password ?>">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline " type="button" id="togglePassword" style="background-color: rgba(135, 139, 243, .5); border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 10px; padding-right: 10px;">
+                                    <i class="fas fa-eye d-none" id="show_eye"></i>
+                                    <i class="fas fa-eye-slash" id="hide_eye"></i>
+                                </button>
+                            </div>
+                        </div>
                         <p class="error password_error text-danger">
                             <?php echo $password_error ?>
                         </p>
@@ -127,7 +146,24 @@ include('backend.php');
             </div>
         </div>
     </div>
-    <script src="background.js"></script>
+    <!--show password script-->
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordInput = document.getElementById('passwordEmployee');
+            var showEyeIcon = document.getElementById('show_eye');
+            var hideEyeIcon = document.getElementById('hide_eye');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                showEyeIcon.classList.remove('d-none');
+                hideEyeIcon.classList.add('d-none');
+            } else {
+                passwordInput.type = 'password';
+                showEyeIcon.classList.add('d-none');
+                hideEyeIcon.classList.remove('d-none');
+            }
+        });
+    </script>
 </body>
 
 </html>
