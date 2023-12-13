@@ -63,10 +63,10 @@ header("Content-Security-Policy: img-src * data:");
             </div>
 
             <div>
-                <button type="submit" class="btn-verify btn-primary-verify" id="submitBtn" name="btn-verify">Verify</button>
+                <button type="submit" class="btn-verify btn-primary-verify" id="submitBtn" name="btn-forgot-verify">Verify</button>
             </div>
         </form>
-        <small> If you didn't recieve a code!! <a href="resend_code.php" style="color: white; font-weight: bold;">Resend</a></small>
+        <small> If you didn't recieve a code!! <a href="resend_code_student_forgot.php" style="color: white; font-weight: bold;">Resend</a></small>
 
         <script src="verification.js"></script>
         <script src="countdown.js"></script>

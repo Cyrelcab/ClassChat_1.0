@@ -88,13 +88,9 @@ header("Content-Security-Policy: img-src * data:");
             }
         </style><?php
             } ?>
-
-    <!--style for background so that it will render fast-->
     <style>
         body {
-            background-image: url('image/background-color.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
+            background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));
         }
     </style>
 </head>
@@ -115,7 +111,7 @@ header("Content-Security-Policy: img-src * data:");
                         <?php echo $_SESSION['msg']; ?>
                     </p>
                     <?php unset($_SESSION['msg']); ?>
-                    <?php session_destroy();?>
+                    <?php session_destroy(); ?>
                 <?php endif; ?>
 
                 <form class="px-3 py-4" autocomplete="off" method="POST">
@@ -151,7 +147,7 @@ header("Content-Security-Policy: img-src * data:");
                     </div>
                 </form>
                 <div class="px-3">
-                <p class="text-dark fw-semibold"><a href="forgot_password_employee.php" class="text-decoration-none" style="color:  #3A48B6;">Forgot Password?</a></p>
+                    <p class="text-dark fw-semibold"><a href="forgot_password_employee.php" class="text-decoration-none" style="color:  #3A48B6;">Forgot Password?</a></p>
                     <p class="text-dark fw-semibold">Don't have an Account? <a href="signup_employee.php" class="text-decoration-none" style="color: #3A48B6;">Signup</a></p>
                 </div>
             </div>
@@ -176,9 +172,9 @@ header("Content-Security-Policy: img-src * data:");
         });
     </script>
     <script>
-        $(document).on('click', '#login_employee_btn', function(){
+        $(document).on('click', '#login_employee_btn', function() {
             var response = grecaptcha.getResponse();
-            if(response.length == 0){
+            if (response.length == 0) {
                 alert('Please check the reCAPTCHA before submitting the form.');
                 return false;
             }

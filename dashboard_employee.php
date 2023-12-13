@@ -42,14 +42,12 @@ header("Content-Security-Policy: img-src * data:");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Employee</title>
-    <!--style for background so that it will render fast-->
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            background-image: url('image/background-color.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-    </style>
+    body{
+      background: linear-gradient(to left, rgb(5,98,155), rgb(99,27,163));
+    }
+  </style>
 </head>
 
 <body>

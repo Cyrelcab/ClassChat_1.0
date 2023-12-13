@@ -4,6 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 include('checkIDbackend.php');
 include('checkEmailbackend.php');
+include('getEmail.php');
 include('vendor/autoload.php');
 
 //variables for the database connection
@@ -16,6 +17,7 @@ $db_name = "classchat_database";
 $id_number = null;
 $name = null;
 $email = null;
+$new_password = null;
 $password = null;
 $confirm_password = null;
 $id_error = null;
@@ -267,6 +269,7 @@ if (isset($_POST['signupEmployee_btn'])) {
     }
 }
 
+//verification process for STUDENT
 if (isset($_POST['btn-verify'])) {
     // Assuming you have already generated and stored the verification code in a session variable
     $generated_code = $_SESSION['verification_code'];
@@ -304,8 +307,9 @@ if (isset($_POST['btn-verify'])) {
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
             mysqli_query($conn, $query);
             $_SESSION['idNumberStudent'] = $id_number;
+            $_SESSION['last_activity_timestamp'] = time();
             header('location: dashboard_student.php');
-        }else{
+        } else {
             // Verification code has expired
             echo "Verification code has expired!";
         }
@@ -315,6 +319,8 @@ if (isset($_POST['btn-verify'])) {
     }
 }
 
+
+//verification process for EMPLOYEE
 if (isset($_POST['btn-verify-employee'])) {
     // Assuming you have already generated and stored the verification code in a session variable
     $generated_code = $_SESSION['verification_code'];
@@ -345,6 +351,7 @@ if (isset($_POST['btn-verify-employee'])) {
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
         mysqli_query($conn, $query);
         $_SESSION['idNumberEmployee'] = $id_number;
+        $_SESSION['last_activity_timestamp'] = time();
         header('location: dashboard_employee.php');
     } else {
         // Verification failed, display an error message or redirect
@@ -352,6 +359,8 @@ if (isset($_POST['btn-verify-employee'])) {
     }
 }
 
+
+//login process for STUDENT
 if (isset($_POST['login_student_btn'])) {
     $id_number = trim($_POST['idNumber']);
     $user_password = trim($_POST['passwordStudent']);
@@ -363,8 +372,8 @@ if (isset($_POST['login_student_btn'])) {
     if (empty($user_password)) {
         $password_error = "Password Field is empty!";
     }
-    
-    if (empty($id_error) && empty($password_error)){
+
+    if (empty($id_error) && empty($password_error)) {
         $query = "SELECT * FROM student_table WHERE ID_number = ?";
         $stmt = mysqli_prepare($conn, $query);
 
@@ -380,7 +389,7 @@ if (isset($_POST['login_student_btn'])) {
                 if ($row) {
                     $hashed_password = $row['Password'];
 
-                    $checkPassword = fn($password) => password_verify($password, $hashed_password);
+                    $checkPassword = fn ($password) => password_verify($password, $hashed_password);
 
                     if ($checkPassword($user_password)) {
                         $_SESSION['idNumberStudent'] = $id_number;
@@ -407,6 +416,8 @@ if (isset($_POST['login_student_btn'])) {
     }
 }
 
+
+//login process for EMPLOYEE
 if (isset($_POST['login_employee_btn'])) {
     $id_number = trim($_POST['employeeNumber']);
     $user_password = trim($_POST['passwordEmployee']);
@@ -414,12 +425,12 @@ if (isset($_POST['login_employee_btn'])) {
     if (empty($id_number)) {
         $id_error = "ID Field is empty!";
     }
-    
+
     if (empty($user_password)) {
         $password_error = "Password Field is empty!";
-    } 
-    
-    if(empty($id_error) && empty($password_error)) {
+    }
+
+    if (empty($id_error) && empty($password_error)) {
         $query = "SELECT * FROM employee_table WHERE Employee_number = ?";
         $stmt = mysqli_prepare($conn, $query);
 
@@ -435,7 +446,7 @@ if (isset($_POST['login_employee_btn'])) {
                 if ($row) {
                     $hashed_password = $row['Password'];
 
-                    $checkPassword = fn($password) => password_verify($password, $hashed_password);
+                    $checkPassword = fn ($password) => password_verify($password, $hashed_password);
 
                     if ($checkPassword($user_password)) {
                         $_SESSION['idNumberEmployee'] = $id_number;
@@ -460,5 +471,146 @@ if (isset($_POST['login_employee_btn'])) {
         }
 
         mysqli_close($conn);
+    }
+}
+
+//for forgot password - STUDENT
+if (isset($_POST['forgot_password_student'])) {
+    $id_number = $_POST['idNumber'];
+    $new_password = $_POST['newPasswordStudent'];
+    $confirm_password = $_POST['confirmPasswordStudent'];
+
+    if (empty($id_number)) {
+        $id_error = "ID Field is empty!";
+    }
+
+    if (empty($new_password)) {
+        $password_error = "Password Field is empty!";
+    }
+
+    if (empty($confirm_password)) {
+        $confirm_password_error = "Confirm Password Field is empty!";
+    }
+
+    if (empty($id_error) && empty($password_error) && empty($confirm_password_error)) {
+        $id_exists = checkIDExist($conn, $id_number);
+
+        if ($id_exists) {
+            if ($new_password === $confirm_password) {
+                if (preg_match('/[!@$%&]/', $new_password)) {
+                    if (strlen($new_password) >= 12) {
+                        $email = getStudentEmailById($conn, $id_number);
+
+                        //generate code to send in email
+                        $otp_code = rand(100000, 999999);
+
+                        //send otp code to email
+                        $mail = new PHPMailer();
+                        $mail->IsSMTP();
+                        $mail->SMTPAuth = true;
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Host = "smtp.gmail.com";
+                        $mail->Port = 587;
+                        $mail->IsHTML(true);
+                        $mail->CharSet = "UTF-8";
+                        $mail->SMTPDebug = 3;
+                        $mail->Username = "classchat10@gmail.com";
+                        $mail->Password = "ppsx ozyl tbrp qlse";
+                        $mail->SetFrom("classchat10@gmail.com", "ClassChat");
+                        $mail->Subject = "Email Verification";
+                        $mail->Body = "Your 6 Digit Verification Code: " . $otp_code;
+                        $mail->AddAddress($email);
+                        $mail->SMTPOptions = array('ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => false
+                        ));
+
+                        //check if it is successfully send
+                        if (!$mail->Send()) {
+                            echo $mail->ErrorInfo;
+                        } else {
+                            session_start();
+
+                            $_SESSION['users_id'] = $id_number;
+                            $_SESSION['users_email'] = $email;
+                            $_SESSION['users_password'] = $new_password;
+                            $_SESSION['verification_code'] = $otp_code;
+                            $_SESSION['verification_code_timestamp'] = time();
+                            $_SESSION['verification_msg'] = "We emailed you the six digit code to " . $email . "<br/> Enter the code below to confirm your email address";
+                            header('location: verification_forgot_student.php');
+                        }
+                    } else {
+                        $password_error = "Password must atleast 12 characters long";
+                        $confirm_password_error = "Password must atleast 12 characters long";
+                    }
+                } else {
+                    $password_error = "Password must contain characters !@$%&";
+                    $confirm_password_error = "Password must contain characters !@$%&";
+                }
+            } else {
+                $password_error = "Password not match!";
+                $confirm_password_error = "Password not match!";
+            }
+        } else {
+            $user_error = "This ID Number is not exist!";
+        }
+    }
+}
+
+//verification process for student forgot password
+if (isset($_POST['btn-forgot-verify'])) {
+    // Assuming you have already generated and stored the verification code in a session variable
+    $generated_code = $_SESSION['verification_code'];
+    $timestamp_generated = $_SESSION['verification_code_timestamp'];
+
+    //variables to be input in the database
+    $id_number = trim($_SESSION['users_id']);
+    $password = trim($_SESSION['users_password']);
+    // Collect user input from the form
+    $user_input = '';
+    for ($i = 1; $i <= 6; $i++) {
+        $input_name = 'code' . $i;
+        if (isset($_POST[$input_name])) {
+            $user_input .= $_POST[$input_name];
+        }
+    }
+
+    $user_input = trim($user_input);
+    $generated_code = trim($generated_code);
+
+    // Compare user input with the generated code
+    if ($user_input === $generated_code) {
+        $current_timestamp = time();
+        $time_difference = $current_timestamp - $timestamp_generated;
+
+        $verification_time_limit = 60;
+
+        if ($time_difference <= $verification_time_limit) {
+            $query = "UPDATE student_table SET Password = ?, verification_code = ? WHERE ID_number = ?";
+            $stmt = mysqli_prepare($conn, $query);
+
+            if ($stmt) {
+                //encrypt the password
+                $password_encrypted = password_hash($password, PASSWORD_DEFAULT);
+                // Bind the parameters
+                mysqli_stmt_bind_param($stmt, "sss", $password_encrypted, $generated_code, $id_number);
+
+                if (mysqli_stmt_execute($stmt)) {
+                    if (mysqli_stmt_affected_rows($stmt) > 0) {
+                        $_SESSION['success'] = "You've successfully updated your password";
+                        header('location: login_student.php');
+                    }
+                } else {
+                    echo "Error: " . mysqli_error($conn);
+                }
+            }
+        } else {
+            // Verification code has expired
+            echo "Verification code has expired!";
+        }
+    } else {
+        // Verification failed, display an error message or redirect
+        echo "Verification failed!";
     }
 }

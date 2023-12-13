@@ -89,13 +89,9 @@ header("Content-Security-Policy: img-src * data:");
             }
         </style><?php
             } ?>
-
-    <!--style for background so that it will render fast-->
     <style>
         body {
-            background-image: url('image/background-color.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
+            background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));
         }
     </style>
 </head>
@@ -116,7 +112,14 @@ header("Content-Security-Policy: img-src * data:");
                         <?php echo $_SESSION['msg']; ?>
                     </p>
                     <?php unset($_SESSION['msg']); ?>
-                    <?php session_destroy();?>
+                    <?php session_destroy(); ?>
+                <?php endif; ?>
+                <?php
+                if (isset($_SESSION['success']) && !empty($_SESSION['success'])) : ?>
+                    <p class="error_exist text-success text-center" style="display: block !important; background-color: #d1e7dd !important;">
+                        <?php echo $_SESSION['success']; ?>
+                    </p>
+                    <?php unset($_SESSION['success']); ?>
                 <?php endif; ?>
 
                 <form class="px-3 py-4" autocomplete="off" method="POST" id="login_student_id">
@@ -179,9 +182,9 @@ header("Content-Security-Policy: img-src * data:");
         });
     </script>
     <script>
-        $(document).on('click', '#login_student_btn', function(){
+        $(document).on('click', '#login_student_btn', function() {
             var response = grecaptcha.getResponse();
-            if(response.length == 0){
+            if (response.length == 0) {
                 alert('Please check the reCAPTCHA before submitting the form.');
                 return false;
             }

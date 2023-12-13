@@ -25,6 +25,11 @@ header("Content-Security-Policy: img-src * data:");
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ClassChat</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body{
+      background: linear-gradient(to left, rgb(5,98,155), rgb(99,27,163));
+    }
+  </style>
 
   <!--stylesheet using bootstrap5-->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -36,13 +41,6 @@ header("Content-Security-Policy: img-src * data:");
 
   <!--for animations-->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <style>
-    body {
-      background-image: url('image/background-color.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-  </style>
 </head>
 
 <body>

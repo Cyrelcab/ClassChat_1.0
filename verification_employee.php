@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('backend.php'); 
+include('backend.php');
 
 if (!isset($_SESSION['verification_code'])) {
     $_SESSION['msg'] = 'You must signup first!';
@@ -22,22 +22,17 @@ header("Content-Security-Policy: img-src * data:");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify Account</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));
+        }
+    </style>
 
 
     <!--font-family "Poppins"-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-
-    <!--style for background so that it will render fast-->
-    <style>
-        body {
-            background-image: url('image/background-color.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-    </style>
-
 </head>
 
 <body class="verification-body">
