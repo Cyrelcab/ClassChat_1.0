@@ -22,6 +22,7 @@ header("Content-Security-Policy: img-src * data:");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify Account</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="image/logo.png">
     <style>
         body {
             background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));

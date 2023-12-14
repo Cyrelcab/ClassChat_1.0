@@ -16,6 +16,7 @@ header("Content-Security-Policy: img-src * data:");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Student</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="image/logo.png">
 
     <!--stylesheet using bootstrap5-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
