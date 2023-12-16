@@ -166,7 +166,7 @@ header("Content-Security-Policy: img-src * data:");
                         <div class="input-group">
                             <input type="password" class="form-control error-input" id="confirmPasswordStudent" placeholder='must contain "!@$%&" and atleast 12 characters long' name="confirmPasswordStudent" style="background-color: rgba(135, 139, 243, .5);" value="<?php echo $confirm_password ?>">
                             <div class="input-group-append">
-                                <button class="btn btn-outline " type="button" id="toggleConfirmPassword" style="background-color: rgba(135, 139, 243, .5); border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 10px; padding-right: 10px;">
+                                <button class="btn btn-outline" type="button" id="toggleConfirmPassword" style="background-color: rgba(135, 139, 243, .5); border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 10px; padding-right: 10px;">
                                     <i class="fas fa-eye d-none" id="show_confirm_eye"></i>
                                     <i class="fas fa-eye-slash" id="hide_confirm_eye"></i>
                                 </button>

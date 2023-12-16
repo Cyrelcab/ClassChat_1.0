@@ -35,6 +35,8 @@ header("Content-Security-Policy: default-src 'self'");
 header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.com");
 header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
 header("Content-Security-Policy: img-src * data:");
+
+//security headers
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,9 +64,10 @@ header("Content-Security-Policy: img-src * data:");
             /* Optional: Set a background color for the fixed column */
             padding: 20px;
         }
-        .fixed-column i{
+
+        .fixed-column i {
             text-align: center;
-            display: block; 
+            display: block;
             font-size: 155px;
         }
 
@@ -72,6 +75,11 @@ header("Content-Security-Policy: img-src * data:");
             margin-left: 410px;
             padding-top: 95px;
         }
+
+        .custom-input:focus {
+            box-shadow: none !important;
+        }
+
     </style>
 
     <!--stylesheet using bootstrap5-->
@@ -129,11 +137,127 @@ header("Content-Security-Policy: img-src * data:");
         <div class="row text-white">
             <div class="col-3 fixed-column">
                 <i class="far fa-user-circle"></i>
-                <h5 class="pt-4 px-5">Name: <?php echo $_SESSION['users_name']?></h5>
-                <h5 class="px-5">ID Number: <?php echo $_SESSION['idNumberStudent']?></h5>
+                <h5 class="pt-4 px-5">Name: <?php echo $_SESSION['users_name'] ?></h5>
+                <h5 class="px-5">ID Number: <?php echo $_SESSION['idNumberStudent'] ?></h5>
             </div>
             <div class="col-9 scrollable-column">
-                <p class="w-75">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem animi minima unde voluptatem dolorum quisquam officiis, aspernatur aliquid necessitatibus temporibus suscipit voluptatibus, maxime corporis odio. Consequuntur in magnam qui ut?Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam error doloremque dolore, non temporibus dolores impedit repudiandae illum vitae nam culpa, quod necessitatibus quisquam, unde tempora corrupti animi consectetur cupiditate Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, reiciendis cupiditate temporibus adipisci earum illo, officia provident magnam fugiat consequatur quae tempore ex, pariatur praesentium enim aperiam. Sequi, vero dolore! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem maxime molestiae nesciunt obcaecati cupiditate tempore quasi in repellendus necessitatibus, sapiente reprehenderit? Culpa eos est nulla doloremque atque ea, explicabo voluptatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Non eum, laudantium numquam inventore fugit adipisci laborum? Hic fugiat ipsum doloribus doloremque dolores dolore modi quisquam eaque? Hic rerum odit eveniet? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam odio distinctio cum commodi libero, sequi adipisci pariatur alias labore nesciunt tempore! Eius possimus odio laborum voluptatum sunt numquam, consequatur mollitia? Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum at nostrum, reprehenderit accusantium tenetur numquam vero, hic voluptatem ducimus repudiandae doloremque minima neque, labore facere. Autem optio quod nostrum. Sed. Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis rem soluta, alias totam, nobis hic ipsum laboriosam harum doloribus suscipit aut repellat deleniti ex quis? Minus itaque aut illum expedita. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae dolorem nihil laudantium iure vel inventore earum. Quod, quae natus tenetur voluptatum quis possimus, id nisi error numquam deleniti maxime dignissimos! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, impedit? Fuga, nostrum. Ipsam quia distinctio repudiandae explicabo, eaque consequatur incidunt placeat neque nam, illo alias cupiditate voluptatem in! Repellat, fugit! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id exercitationem voluptatem distinctio porro, excepturi aperiam quae est vero, quo, dolores numquam atque magni doloremque corrupti beatae. Error corporis eius labore. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque est magnam culpa reiciendis saepe eligendi nihil eum porro fuga cum minima fugiat esse, vitae natus? Maxime iure dicta ex magnam! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis obcaecati repudiandae, suscipit ipsam ab ex rem officiis doloribus ratione dolore iure minima neque consectetur, esse vitae! Odit voluptates vel qui. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores omnis, magni rem quidem consectetur aliquid quasi quae officiis ipsa consequuntur numquam culpa alias animi fugit accusantium. Itaque ea culpa laboriosam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae sequi architecto porro debitis iusto exercitationem vero totam, rerum quos saepe nobis ipsam maxime aliquam optio. Velit eius deleniti quae temporibus?</p>
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <h5>Dashboard</h5>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search" aria-describedby="button-addon1" class="form-control rounded rounded-pill border-0 bg-light custom-input">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5 gap-5">
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
