@@ -114,6 +114,13 @@ header("Content-Security-Policy: img-src * data:");
                     <?php unset($_SESSION['msg']); ?>
                     <?php session_destroy(); ?>
                 <?php endif; ?>
+                <?php
+                if (isset($_SESSION['success']) && !empty($_SESSION['success'])) : ?>
+                    <p class="error_exist text-success text-center" style="display: block !important; background-color: #d1e7dd !important;">
+                        <?php echo $_SESSION['success']; ?>
+                    </p>
+                    <?php unset($_SESSION['success']); ?>
+                <?php endif; ?>
 
                 <form class="px-3 py-4" autocomplete="off" method="POST">
                     <div class="mb-3">
@@ -149,7 +156,7 @@ header("Content-Security-Policy: img-src * data:");
                 </form>
                 <div class="px-3">
                     <p class="text-dark fw-semibold"><a href="forgot_password_employee.php" class="text-decoration-none" style="color:  #3A48B6;">Forgot Password?</a></p>
-                    <p class="text-dark fw-semibold">Don't have an Account? <a href="signup_employee.php" class="text-decoration-none" style="color: #3A48B6;">Signup</a></p>
+                    <p class="text-dark fw-semibold"><a href="signup_employee.php" class="text-decoration-none" style="color: #3A48B6;">Don't have an Account?</a></p>
                 </div>
             </div>
         </div>

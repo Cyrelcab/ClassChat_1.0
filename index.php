@@ -265,17 +265,6 @@ header("Content-Security-Policy: img-src * data:");
   </script>
   <!--end of script for automatically close toggler-->
   <!-- <script src="background.js"></script> -->
-
-  <!--preloader-->
-  <script>
-    window.addEventListener('load', function() {
-      var preloader = document.getElementById('preloader');
-      preloader.style.display = 'none';
-
-      // Remove the overflow: hidden style from the body
-      document.body.classList.remove('preloader-hidden');
-    });
-  </script>
 </body>
 
 </html>
