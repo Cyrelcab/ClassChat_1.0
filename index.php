@@ -16,6 +16,9 @@ header("Content-Security-Policy: default-src 'self'");
 header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.com");
 header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
 header("Content-Security-Policy: img-src * data:");
+
+// prevents your site from being embedded within frames, protecting against clickjacking attacks
+header('X-Frame-Options: DENY');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +32,52 @@ header("Content-Security-Policy: img-src * data:");
   <style>
     body{
       background: linear-gradient(to left, rgb(5,98,155), rgb(99,27,163));
+    }
+    @media only screen and (max-width:600px) {
+      body{
+        width: 50% !important;
+      }
+      .navbar{
+        width: 100% !important;
+      }
+      .col-6>img.custom-image-size {
+        display: none !important;
+      }
+      #home>.row{
+        margin-top: 15% !important;
+        margin-bottom: -20% !important;
+        width: 200% !important;
+      }
+      #home>.row>.col{
+        margin-left: 10% !important;
+        margin-right: 25% !important;
+      }
+      #home>.row>.col>h1{
+        width: 120% !important;
+        font-size: 30px !important;
+      }
+      #home>.row>.col>p.fs-4{
+        width: 130% !important;
+        font-size: 17px !important;
+      }
+
+      /*about section*/
+      #about>.row>.col>img,h2.text-center{
+        display: none !important;
+      }
+      #about>.row>.about-responsive>.custom-border-about{
+        width: 210% !important;
+        margin-left: 5% !important;
+      }
+
+      /*services section*/
+      #services>.row>.col>.custom-image-size{
+        display: none !important;
+      }
+      #services>.row>.services-responsive>.custom-border-about{
+        width: 210% !important;
+        margin-left: 5% !important;
+      }
     }
   </style>
 

@@ -14,6 +14,9 @@ header("Content-Security-Policy: style-src 'self' https://maxcdn.bootstrapcdn.co
 header("Content-Security-Policy: script-src 'self' https://ajax.googleapis.com 'unsafe-inline'");
 header("Content-Security-Policy: img-src * data:");
 
+// prevents your site from being embedded within frames, protecting against clickjacking attacks
+header('X-Frame-Options: DENY');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
