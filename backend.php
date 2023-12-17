@@ -2,16 +2,11 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 
-include ('checkIDbackend.php');
+include('checkIDbackend.php');
 include('checkEmailbackend.php');
 include('getEmail.php');
 include('vendor/autoload.php');
-
-//variables for the database connection
-$server_name = "localhost";
-$username = "root";
-$password = "";
-$db_name = "classchat_database";
+include('connectiondb.php');
 
 //declaring all the variables 
 $id_number = null;
@@ -31,15 +26,6 @@ $password_error = null;
 $confirm_password_error = null;
 $carsu_email = "@carsu.edu.ph";
 $verification_msg = null;
-
-/*connect to mysql*/
-$conn = mysqli_connect($server_name, $username, $password, $db_name);
-
-/*check if the database is successfully connected*/
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 
 //check if the signup button for the student has been click
 if (isset($_POST['signupStudent_btn'])) {
@@ -306,6 +292,10 @@ if (isset($_POST['btn-verify'])) {
             $query = "INSERT INTO student_table (ID_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
             mysqli_query($conn, $query);
+
+            //update the active status
+            $query = "UPDATE student_table SET active_status='online' WHERE ID_number = '$id_number'";
+            mysqli_query($conn, $query);
             $_SESSION['idNumberStudent'] = $id_number;
             $_SESSION['last_activity_timestamp'] = time();
             header('location: dashboard_student.php');
@@ -350,6 +340,10 @@ if (isset($_POST['btn-verify-employee'])) {
         $query = "INSERT INTO employee_table (Employee_number, Name, Email, Password, verification_code) 
                                 VALUES('$id_number', '$name', '$email', '$password_encrypted', '$generated_code')";
         mysqli_query($conn, $query);
+
+        //update the active status
+        $query = "UPDATE employee_table SET active_status='online' WHERE ID_number = '$id_number'";
+        mysqli_query($conn, $query);
         $_SESSION['idNumberEmployee'] = $id_number;
         $_SESSION['last_activity_timestamp'] = time();
         header('location: dashboard_employee.php');
@@ -392,6 +386,23 @@ if (isset($_POST['login_student_btn'])) {
                     $checkPassword = fn ($password) => password_verify($password, $hashed_password);
 
                     if ($checkPassword($user_password)) {
+                        //update the active status
+                        $query = "UPDATE student_table SET active_status='online' WHERE ID_number = '$id_number'";
+                        mysqli_query($conn, $query);
+
+                        //auditing logged in
+                        // Set the timezone to Asia/Manila
+                        date_default_timezone_set('Asia/Manila');
+                        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+                        $_SESSION['device_info'] = $userAgent;
+                        $device_information = $_SESSION['device_info'];
+                        $time_logged_in = date("Y-m-d H:i:s");
+
+                        //query to store the device information and the time into the database
+                        $query = "INSERT INTO auditing_logs_student (student_id, device_information, time_logged_in)
+                                    VALUES('$id_number', '$device_information', '$time_logged_in')";
+                        mysqli_query($conn, $query);
+
                         $_SESSION['idNumberStudent'] = $id_number;
                         $_SESSION['users_name'] = $row['Name'];
                         $_SESSION['last_activity_timestamp'] = time();
@@ -450,6 +461,23 @@ if (isset($_POST['login_employee_btn'])) {
                     $checkPassword = fn ($password) => password_verify($password, $hashed_password);
 
                     if ($checkPassword($user_password)) {
+                        //update the active status
+                        $query = "UPDATE employee_table SET active_status='online' WHERE Employee_number = '$id_number'";
+                        mysqli_query($conn, $query);
+
+                         //auditing logged in
+                        // Set the timezone to Asia/Manila
+                        date_default_timezone_set('Asia/Manila');
+                        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+                        $_SESSION['device_info'] = $userAgent;
+                        $device_information = $_SESSION['device_info'];
+                        $time_logged_in = date("Y-m-d H:i:s");
+
+                        //query to store the device information and the time into the database
+                        $query = "INSERT INTO auditing_logs_employee (employee_id, device_information, time_logged_in)
+                                    VALUES('$id_number', '$device_information', '$time_logged_in')";
+                        mysqli_query($conn, $query);
+                        
                         $_SESSION['idNumberEmployee'] = $id_number;
                         $_SESSION['users_name'] = $row['Name'];
                         $_SESSION['last_activity_timestamp'] = time();

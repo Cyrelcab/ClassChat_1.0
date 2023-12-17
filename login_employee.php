@@ -93,6 +93,21 @@ header("Content-Security-Policy: img-src * data:");
         body {
             background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));
         }
+        @media only screen and (max-width: 600px) {
+            div.card-custom {
+                width: 80% !important;
+            }
+        }
+        @media only screen and (max-width: 768px) {
+            div.card-custom {
+                width: 80% !important;
+            }
+        }
+        @media only screen and (max-width: 900px) {
+            div.card-custom {
+                width: 80% !important;
+            }
+        }
     </style>
 </head>
 

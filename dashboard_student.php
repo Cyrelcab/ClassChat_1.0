@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('connectiondb.php');
 
 // Check if the student is not logged in
 if (!isset($_SESSION['idNumberStudent'])) {
@@ -7,23 +8,31 @@ if (!isset($_SESSION['idNumberStudent'])) {
     header('location: login_student.php');
     exit();
 } elseif (isset($_SESSION['idNumberStudent'])) {
-    // Check if the session has expired
-    // $sessionTimeout = 60; // Set the session timeout limit in seconds
+    //Check if the session has expired
+    $sessionTimeout = 900; // Set the session timeout limit in seconds
 
-    // if (time() - $_SESSION['last_activity_timestamp'] > $sessionTimeout) {
-    //     unset($_SESSION['idNumberStudent']);
-    //     unset($_SESSION['last_activity_timestamp']);
-    //     $_SESSION['msg'] = 'Session Expired!';
-    //     header('location: login_student.php');
-    //     exit();
-    // } else {
-    //     // Update the last activity timestamp for the active session
-    //     $_SESSION['last_activity_timestamp'] = time();
-    // }
+    if (time() - $_SESSION['last_activity_timestamp'] > $sessionTimeout) {
+        $id_number = $_SESSION['idNumberStudent'];
+        //update the active status
+        $query = "UPDATE student_table SET active_status='offline' WHERE ID_number = '$id_number'";
+        mysqli_query($conn, $query);
+        unset($_SESSION['idNumberStudent']);
+        unset($_SESSION['last_activity_timestamp']);
+        $_SESSION['msg'] = 'Session Expired!';
+        header('location: login_student.php');
+        exit();
+    } else {
+        // Update the last activity timestamp for the active session
+        $_SESSION['last_activity_timestamp'] = time();
+    }
 }
 
 // Logout functionality
 if (isset($_GET['logout'])) {
+    $id_number = $_SESSION['idNumberStudent'];
+    //update the active status
+    $query = "UPDATE student_table SET active_status='offline' WHERE ID_number = '$id_number'";
+    mysqli_query($conn, $query);
     session_destroy();
     unset($_SESSION['idNumberStudent']);
     header('location: index.php');
@@ -50,6 +59,7 @@ header("Content-Security-Policy: img-src * data:");
     <style>
         body {
             background: linear-gradient(to left, rgb(5, 98, 155), rgb(99, 27, 163));
+            width: 100vw;
         }
 
         /*style for dashboard*/
@@ -79,7 +89,6 @@ header("Content-Security-Policy: img-src * data:");
         .custom-input:focus {
             box-shadow: none !important;
         }
-
     </style>
 
     <!--stylesheet using bootstrap5-->
@@ -119,7 +128,7 @@ header("Content-Security-Policy: img-src * data:");
                         <a class="nav-link text-white scrollto text-decoration-underline" href="">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white scrollto" href="#about">Auditing Logs</a>
+                        <a class="nav-link text-white scrollto" href="auditing_student.php">Audit Logs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="dashboard_student.php?logout='1'">
@@ -137,8 +146,8 @@ header("Content-Security-Policy: img-src * data:");
         <div class="row text-white">
             <div class="col-3 fixed-column">
                 <i class="far fa-user-circle"></i>
-                <h5 class="pt-4 px-5">Name: <?php echo $_SESSION['users_name'] ?></h5>
-                <h5 class="px-5">ID Number: <?php echo $_SESSION['idNumberStudent'] ?></h5>
+                <h6 class="pt-4 px-5">Name: <?php echo $_SESSION['users_name'] ?></h6>
+                <h6 class="px-5">ID Number: <?php echo $_SESSION['idNumberStudent'] ?></h6>
             </div>
             <div class="col-9 scrollable-column">
                 <div class="row align-items-center">

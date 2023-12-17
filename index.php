@@ -92,7 +92,7 @@ header("Content-Security-Policy: img-src * data:");
         <div class="row justify-content-center align-items-center pt-5 ms-3">
           <div class="col-8">
             <h2>Welcome!</h2>
-            <h2>pili kung kinsa ka</h2>
+            <h5>Please select your role to better assist you:</h5>
           </div>
           <div class="col">
             <img src="image/classchat_logo.png" alt="" class="w-75">
@@ -135,7 +135,7 @@ header("Content-Security-Policy: img-src * data:");
         <div class="row justify-content-center align-items-center pt-5 ms-3">
           <div class="col-8">
             <h2>Welcome!</h2>
-            <h2>pili kung kinsa ka</h2>
+            <h5>Please select your role to better assist you:</h5>
           </div>
           <div class="col">
             <img src="image/classchat_logo.png" alt="" class="w-75">
