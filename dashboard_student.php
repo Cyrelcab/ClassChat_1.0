@@ -321,6 +321,20 @@ header("Content-Security-Policy: img-src * data:");
     <script>
         AOS.init();
     </script>
+    
+<script>
+    function uploadImage(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector('.avatar-container img').src = e.target.result;
+                // You may also use AJAX to send the file to the server for storage
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
 </body>
 
 </html>
